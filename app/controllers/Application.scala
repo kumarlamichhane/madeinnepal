@@ -43,7 +43,7 @@ object Application extends Controller{
           mail.addRecipient(mailData.email)
           mail.addFrom(mailData.email)
           mail.send("Hello World")
-          Future{Ok("mail sent")}
+          Future{Ok("mail sent 2 " + mailData.email)}
         }
       }
     }.getOrElse(Future.successful(BadRequest("invalid json")))
