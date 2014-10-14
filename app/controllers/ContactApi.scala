@@ -1,11 +1,6 @@
 package controllers
 
-import play.api.Logger
-import play.api.libs.iteratee.Enumerator
-import reactivemongo.api.gridfs.Implicits.DefaultReadFileReader
-import java.io.FileInputStream
-import play.api.libs.Files
-import play.api.mvc.MultipartFormData.FilePart
+
 import play.api.mvc._
 import play.modules.reactivemongo.{ReactiveMongoPlugin, MongoController}
 import play.api.libs.json._
@@ -15,18 +10,11 @@ import services.ContactService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import factories.ServiceFactory._
-import services.ContactService._
+
 /**
  * Created by xplorer on 9/18/14.
  */
 object ContactApi extends BaseApi {
-
-  val gridFS = new GridFS(db)
-
-  gridFS.ensureIndex().onComplete {
-    case index =>
-      Logger.info(s"Checked index, result is $index")
-  }
 
   def create = post(contactService)
 
