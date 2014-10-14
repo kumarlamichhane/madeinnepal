@@ -6,7 +6,8 @@ libraryDependencies ++= Seq(
   jdbc,
   anorm,
   cache,
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2"
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2",
+  "com.typesafe" %% "play-plugins-mailer" % "2.1-RC2"
 )     
 
 play.Project.playScalaSettings

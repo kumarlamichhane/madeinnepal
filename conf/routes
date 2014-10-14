@@ -17,7 +17,7 @@ GET         /contacts/address/:address              controllers.ContactApi.findB
 GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findByBloodGroup(bloodGroup)
 GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findByPhoneNumber(phoneNumber)
 
-#POST        /mail                                   controllers.Application.mail
+POST        /mail                                   controllers.Application.mail
 
 
 

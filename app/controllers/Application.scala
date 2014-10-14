@@ -1,11 +1,10 @@
 package controllers
 
-import play.api.Logger
-import play.api.libs.json.{JsValue, JsObject, Json}
+import com.typesafe.plugin._
+import play.api.Play.current
+import domains.Mail
+import play.api.libs.json.{Reads,Json}
 import play.api.mvc._
-import play.libs.Json
-import reactivemongo.api.gridfs.GridFS
-import services.BaseService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -34,6 +33,22 @@ object Application extends Controller{
     }
   }
 
+  val mailReader: Reads[Mail] = implicitly[Reads[Mail]]
+  def mail = Action.async(parse.json){
+    request=>{
+      Json.fromJson(request.body)(mailReader).map{
+        mailData => {
+          val mail = use[MailerPlugin].email
+          mail.setSubject("Email sent using Scala")
+          mail.addRecipient(mailData.email)
+          mail.addFrom(mailData.email)
+          mail.send("Hello World")
+          Future{Ok("mail sent")}
+        }
+      }
+    }.getOrElse(Future.successful(BadRequest("invalid json")))
+
+  }
 
 
 }

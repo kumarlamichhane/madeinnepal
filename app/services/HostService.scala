@@ -3,7 +3,7 @@ package services
 import models.Host
 import factories.DaoFactory._
 import play.api.libs.json.{Json, JsObject}
-
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
