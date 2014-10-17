@@ -17,17 +17,9 @@ object ContactService extends BaseService[Contact](contactDao){
 
     }
 
-  def countContacts(address: String): Future[String] = {
-    val contactWithAddress: Future[Seq[JsObject]] = findByAddress(address)
-    contactWithAddress.map{contacts=>
-      val count= contacts.size.toString
-      count
-    }
-
-
-
+  def findByBloodGroup(bloodGroup: String): Future[Seq[JsObject]]={
+    val query = Json.obj("bloodGroup"-> bloodGroup)
+    contactDao.readAll(query).map(_.map( js => transformMongoFields(js)))
   }
-
-
 
 }

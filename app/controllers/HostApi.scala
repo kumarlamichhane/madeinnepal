@@ -1,7 +1,8 @@
 package controllers
 
 import factories.ServiceFactory._
-import play.api.libs.json.{Json, JsObject}
+import models.Host
+import play.api.libs.json.{Reads, Json, JsObject}
 import play.api.mvc.Action
 import services.HostService
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -13,7 +14,16 @@ import play.api.mvc._
  */
 object HostApi extends BaseApi{
 
-  def create = post(hostService)
+  val hostReader: Reads[Host] = implicitly[Reads[Host]]
+  def create = Action.async(parse.json){
+    request=>{
+      Json.fromJson(request.body)(hostReader).map{
+        t=>val host = HostService.createHost(t)
+          
+      }
+    }
+
+  }
 
   def findAll = getAll(hostService)
 

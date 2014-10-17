@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
-    Logger.info("Rew3 server has started.")
+    Logger.info("call4blood server has started.")
 
   }
 
