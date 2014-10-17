@@ -16,15 +16,15 @@ import factories.ServiceFactory._
  */
 object ContactApi extends BaseApi {
 
-  def create = post(contactService)
+  def createContact = post(contactService)
 
-  def findAll = getAll(contactService)
+  def findAllContacts = getAll(contactService)
 
-  def findById(id: String) = getById(id)(contactService)
+  def findContactById(id: String) = getById(id)(contactService)
 
-  def update(id: String) = put(id)(contactService)
+  def updateContact(id: String) = put(id)(contactService)
 
-  def findByAddress(address: String) = Action.async {
+  def findContactsByAddress(address: String) = Action.async {
 
     val contactsByAddress: Future[Seq[JsObject]] = ContactService.findByAddress(address)
     contactsByAddress.map {
@@ -33,20 +33,17 @@ object ContactApi extends BaseApi {
     }
   }
 
-  def findByBloodGroup(bloodGroup: String) = Action.async {
+  def findContactsByBloodGroup(bloodGroup: String) = Action.async {
 
-    val query: JsObject = Json.obj("bloodGroup" -> bloodGroup)
-    val contactsByBloodGroup: Future[Seq[JsObject]] = contactService.findAll(query)
+    val contactsByBloodGroup: Future[Seq[JsObject]] = ContactService.findByBloodGroup(bloodGroup)
     contactsByBloodGroup.map {
       case Nil => NotFound
-      case contacts: Seq[JsObject] => val count= contacts.size.toString
-        val jsCount= Json.obj("count"->count)
-        val jsContacts = Json.obj("contacts"->contacts)
-        Ok(jsContacts++jsCount)
+      case contacts: Seq[JsObject] =>
+        Ok(Json.toJson(contacts))
     }
   }
 
-  def findByPhoneNumber(phoneNumber: String) = Action.async {
+  def findContactByPhoneNumber(phoneNumber: String) = Action.async {
 
     val query: JsObject = Json.obj("phoneNumber" -> phoneNumber)
     val contactsByPhoneNumber: Future[Option[JsObject]] = contactService.findOne(query)
@@ -54,11 +51,6 @@ object ContactApi extends BaseApi {
       case None => NotFound
       case Some(t) => Ok(Json.toJson(t))
     }
-  }
-
-  def count(address: String) = Action.async {
-    val count: Future[String] = ContactService.countContacts(address)
-    count.map(count=>Ok(Json.obj("count"->count)))
   }
 
 }

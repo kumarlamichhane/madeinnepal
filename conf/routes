@@ -5,20 +5,20 @@
 # Home page
 GET         /                                       controllers.Application.index
 
-GET         /contacts                               controllers.ContactApi.findAll
-POST        /contacts                               controllers.ContactApi.create
-GET         /contacts/:id                           controllers.ContactApi.findById(id)
-PUT         /contacts/:id                           controllers.ContactApi.update(id)
-GET         /contacts/count/:address                controllers.ContactApi.count(address)
-#POST        /contacts/:id/attachments                   controllers.ContactApi.saveAttachment(id)
-POST        /upload                                     controllers.Application.upload
+#Contacts
+POST        /contacts                               controllers.ContactApi.createContact
+GET         /contacts                               controllers.ContactApi.findAllContacts
+GET         /contacts/address/:address              controllers.ContactApi.findContactsByAddress(address)
+GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findContactsByBloodGroup(bloodGroup)
+GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findContactByPhoneNumber(phoneNumber)
+GET         /contacts/:id                           controllers.ContactApi.findContactById(id)
+PUT         /contacts/:id                           controllers.ContactApi.updateContact(id)
 
-GET         /contacts/address/:address              controllers.ContactApi.findByAddress(address)
-GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findByBloodGroup(bloodGroup)
-GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findByPhoneNumber(phoneNumber)
 
+#Utils
+POST        /upload                                 controllers.Application.upload
 POST        /mail                                   controllers.Application.mail
-
+#POST        /contacts/:id/attachments                   controllers.ContactApi.saveAttachment(id)
 
 
 # Map static resources from the /public folder to the /assets URL path
