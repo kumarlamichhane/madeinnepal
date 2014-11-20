@@ -24,9 +24,9 @@ GET         /hosts/:id                              controllers.HostApi.findHost
 
 #Utils
 POST        /upload/:reference/:contactId            controllers.Application.uploadFile(contactId: String,reference: String)
-GET         /download/:fileId                        controllers.Application.downloadFile(fileId)
+GET         /downloadfile/:fileId                        controllers.Application.downloadFile(fileId)
 POST        /save/:id                                 controllers.Application.saveAttachment(id)
-
+GET        /downloadattachment/:id                                 controllers.Application.downloadAttachment(id)
 
 #POST        /uploadstream/:contactId                controllers.Application.uploadStream(contactId: String)
 

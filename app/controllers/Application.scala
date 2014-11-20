@@ -98,7 +98,7 @@
         updateResult <- {
           gridFS.files.update(
             BSONDocument("_id" -> file.id),
-            BSONDocument("$set" -> BSONDocument("contactID" -> BSONObjectID(id))))
+            BSONDocument("$set" -> BSONDocument("contactID" -> id)))
         }
       } yield updateResult
 
@@ -106,6 +106,15 @@
         case _ => Ok(" .....")
       }.recover {
         case e => InternalServerError(e.getMessage())
+      }
+    }
+
+    def downloadAttachment(id: String) = Action.async { request =>
+      // find the matching attachment, if any, and streams it to the client
+      val file = gridFS.find(BSONDocument("_id" -> new BSONObjectID(id)))
+      request.getQueryString("inline") match {
+        case Some("true") => serve(gridFS, file, CONTENT_DISPOSITION_INLINE)
+        case _            => serve(gridFS, file)
       }
     }
 
