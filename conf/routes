@@ -14,11 +14,28 @@ GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findC
 GET         /contacts/:id                           controllers.ContactApi.findContactById(id)
 PUT         /contacts/:id                           controllers.ContactApi.updateContact(id)
 
+#Hosts
+POST        /hosts                                  controllers.HostApi.createHost
+GET         /hosts                                  controllers.HostApi.findAllHosts
+GET         /hosts/address/:address                 controllers.HostApi.findHostsByAddress(address)
+GET         /hosts/bloodgroup/:bloodGroup           controllers.HostApi.findHostsByBloodGroup(bloodGroup)
+GET         /hosts/:id                              controllers.HostApi.findHostById(id)
+
 
 #Utils
-POST        /upload                                 controllers.Application.upload
-POST        /mail                                   controllers.Application.mail
+POST        /upload/:reference/:contactId            controllers.Application.uploadFile(contactId: String,reference: String)
+GET         /download/:fileId                        controllers.Application.downloadFile(fileId)
+#POST        /save/:id                                 controllers.Application.saveAttachment(id)
+
+
+#POST        /uploadstream/:contactId                controllers.Application.uploadStream(contactId: String)
+
+
 #POST        /contacts/:id/attachments                   controllers.ContactApi.saveAttachment(id)
+
+
+#Practice
+GET         /requestheader                          practices.Practice.checkRequestHeader
 
 
 # Map static resources from the /public folder to the /assets URL path

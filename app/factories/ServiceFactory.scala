@@ -1,5 +1,6 @@
 package factories
 
+import domains.UploadFile
 import models.{Host, Contact}
 import services.BaseService
 import DaoFactory._
@@ -10,4 +11,5 @@ object ServiceFactory {
 
   val contactService = new BaseService[Contact](contactDao)
   val hostService = new BaseService[Host](hostDao)
+  val fileService = new BaseService[UploadFile](fileDao)
 }

@@ -12,12 +12,14 @@ import scala.concurrent.Future
  */
 object HostService extends BaseService[Host](hostDao){
 
-  def createHost(host: Host): Future[Unit]={
-    insert(host)
-  }
-
   def findByBloodGroup(bloodGroup: String): Future[Seq[JsObject]] = {
     val query = Json.obj("bloodGroup" -> bloodGroup)
+    hostDao.readAll(query).map( _.map( js => transformMongoFields(js)))
+
+  }
+
+  def findByAddress(address: String): Future[Seq[JsObject]] = {
+    val query = Json.obj("address" -> address)
     hostDao.readAll(query).map( _.map( js => transformMongoFields(js)))
 
   }

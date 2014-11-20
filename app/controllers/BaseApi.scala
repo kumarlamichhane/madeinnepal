@@ -23,7 +23,7 @@ trait BaseApi extends Controller with MongoController{
         t => service.insert(t).map{
           lastError =>
           Logger.debug(s"Successfully inserted with LastError: $lastError")
-          Created
+          Ok
         }
       }
     }.getOrElse(Future.successful(BadRequest("invalid json")))
