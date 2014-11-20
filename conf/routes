@@ -5,20 +5,37 @@
 # Home page
 GET         /                                       controllers.Application.index
 
-GET         /contacts                               controllers.ContactApi.findAll
-POST        /contacts                               controllers.ContactApi.create
-GET         /contacts/:id                           controllers.ContactApi.findById(id)
-PUT         /contacts/:id                           controllers.ContactApi.update(id)
-GET         /contacts/count/:address                controllers.ContactApi.count(address)
+#Contacts
+POST        /contacts                               controllers.ContactApi.createContact
+GET         /contacts                               controllers.ContactApi.findAllContacts
+GET         /contacts/address/:address              controllers.ContactApi.findContactsByAddress(address)
+GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findContactsByBloodGroup(bloodGroup)
+GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findContactByPhoneNumber(phoneNumber)
+GET         /contacts/:id                           controllers.ContactApi.findContactById(id)
+PUT         /contacts/:id                           controllers.ContactApi.updateContact(id)
+
+#Hosts
+POST        /hosts                                  controllers.HostApi.createHost
+GET         /hosts                                  controllers.HostApi.findAllHosts
+GET         /hosts/address/:address                 controllers.HostApi.findHostsByAddress(address)
+GET         /hosts/bloodgroup/:bloodGroup           controllers.HostApi.findHostsByBloodGroup(bloodGroup)
+GET         /hosts/:id                              controllers.HostApi.findHostById(id)
+
+
+#Utils
+POST        /upload/:reference/:contactId            controllers.Application.uploadFile(contactId: String,reference: String)
+GET         /download/:fileId                        controllers.Application.downloadFile(fileId)
+#POST        /save/:id                                 controllers.Application.saveAttachment(id)
+
+
+#POST        /uploadstream/:contactId                controllers.Application.uploadStream(contactId: String)
+
+
 #POST        /contacts/:id/attachments                   controllers.ContactApi.saveAttachment(id)
-POST        /upload                                     controllers.Application.upload
 
-GET         /contacts/address/:address              controllers.ContactApi.findByAddress(address)
-GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findByBloodGroup(bloodGroup)
-GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findByPhoneNumber(phoneNumber)
 
-POST        /mail                                   controllers.Application.mail
-
+#Practice
+GET         /requestheader                          practices.Practice.checkRequestHeader
 
 
 # Map static resources from the /public folder to the /assets URL path

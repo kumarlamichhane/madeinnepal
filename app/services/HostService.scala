@@ -18,4 +18,10 @@ object HostService extends BaseService[Host](hostDao){
 
   }
 
+  def findByAddress(address: String): Future[Seq[JsObject]] = {
+    val query = Json.obj("address" -> address)
+    hostDao.readAll(query).map( _.map( js => transformMongoFields(js)))
+
+  }
+
 }

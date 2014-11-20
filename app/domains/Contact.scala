@@ -10,7 +10,8 @@ case class Contact(firstName: String,
                    lastName: String,
                    phoneNumber: String,
                    bloodGroup: String,
-                   address: String)
+                   address: String,
+                   emailAddress:String)
 
 
 object Contact{

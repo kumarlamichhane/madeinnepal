@@ -1,16 +1,12 @@
 package daos
 
-import akka.actor.FSM.Failure
-import play.api.{db, Logger}
 import play.api.Play.current
-import play.api.libs.iteratee.Enumerator
+
 import play.api.libs.json._
 import play.modules.reactivemongo.ReactiveMongoPlugin
-import play.modules.reactivemongo.json.BSONFormats._
 import play.modules.reactivemongo.json.collection.JSONCollection
-import reactivemongo.api.QueryOpts
+import play.modules.reactivemongo.json.BSONFormats._
 import reactivemongo.bson.BSONObjectID
-import reactivemongo.core.commands.LastError
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
