@@ -1,5 +1,6 @@
   package controllers
 
+  import reactivemongo.api.gridfs.Implicits._
   import play.modules.reactivemongo.MongoController
   import play.api.mvc._
   import play.api._
@@ -86,6 +87,26 @@
           false
       }
     }
+    // save the uploaded file as an attachment of the article with the given id
+    def saveAttachment(id: String) = Action.async(gridFSBodyParser(gridFS)) { request =>
+      // here is the future file!
+      val futureFile = request.body.files.head.ref
+      // when the upload is complete, we add the article id to the file entry (in order to find the attachments of the article)
+      val futureUpdate = for {
+        file <- futureFile
+        // here, the file is completely uploaded, so it is time to update the article
+        updateResult <- {
+          gridFS.files.update(
+            BSONDocument("_id" -> file.id),
+            BSONDocument("$set" -> BSONDocument("contactID" -> BSONObjectID(id))))
+        }
+      } yield updateResult
 
+      futureUpdate.map {
+        case _ => Ok(" .....")
+      }.recover {
+        case e => InternalServerError(e.getMessage())
+      }
+    }
 
   }
