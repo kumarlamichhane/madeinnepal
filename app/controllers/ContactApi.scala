@@ -24,6 +24,8 @@ object ContactApi extends BaseApi {
 
   def updateContact(id: String) = put(id)(contactService)
 
+  def updateContactField(id: String) = putPartial(id)(contactService)
+
   def findContactsByAddress(address: String) = Action.async {
 
     val contactsByAddress: Future[Seq[JsObject]] = ContactService.findByAddress(address)

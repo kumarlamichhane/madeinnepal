@@ -1,16 +1,17 @@
   package controllers
 
-  import reactivemongo.api.gridfs.Implicits._
+  import java.io.{File, FileInputStream}
+
+  import reactivemongo.api.gridfs.{ReadFile, DefaultFileToSave}
+  import reactivemongo.api.gridfs.Implicits.DefaultReadFileReader
   import play.modules.reactivemongo.MongoController
   import play.api.mvc._
   import play.api._
   import com.typesafe.plugin._
   import domains._
-  import play.api.libs.iteratee.{Iteratee, Enumerator}
   import play.api.libs.json.{Reads,Json}
-  import reactivemongo.api.gridfs.{ReadFile, DefaultFileToSave}
   import reactivemongo.bson.{BSONObjectID, BSONValue, BSONDocument}
-  import scala.concurrent.ExecutionContext.Implicits.global
+  import play.api.libs.concurrent.Execution.Implicits.defaultContext
   import scala.concurrent.Future
   import factories.ServiceFactory._
   import factories.DaoFactory._
@@ -50,7 +51,6 @@
         }
       }
     }
-
 
     def downloadFile(fileId: String)=Action{
 

@@ -1,7 +1,6 @@
 package domains
 
 import play.api.libs.json.Json
-import utils.Reference
 
 /**
  * Created by xplorer on 11/18/14.

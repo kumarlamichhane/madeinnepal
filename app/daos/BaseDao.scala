@@ -42,4 +42,8 @@ class BaseDao[T](collectionName: String) {
     collection.update(Json.obj("_id" -> id), Json.obj("$set" -> t)).map(_=>())
   }
 
+  def updatePartial(id: BSONObjectID, update: JsObject): Future[Unit]={
+    collection.update(Json.obj("_id" -> id), Json.obj("$set" -> update)).map( _ => ())
+  }
+
 }

@@ -18,13 +18,13 @@ import scala.util.matching.Regex
 
 class BaseService[T: Format](dao: BaseDao[T]) {
 
-  //insert,find,update,delete
+  //insert,find,update,remove
 
   val reader: Reads[T] = implicitly[Reads[T]]
   val writer: Writes[T] = implicitly[Writes[T]]
 
-  def insert(entity: T):  Future[Unit]={
-    val t:JsObject = writer.writes(entity).as[JsObject]
+  def insert(domain: T):  Future[Unit]={
+    val t:JsObject = writer.writes(domain).as[JsObject]
     dao.create(t)
   }
 
@@ -41,10 +41,15 @@ class BaseService[T: Format](dao: BaseDao[T]) {
     dao.readById(bid).map( _.map( js => transformMongoFields(js)))
   }
 
-  def update(id: String,entity: T) : Future[Unit]={
+  def update(id: String, domain: T) : Future[Unit]={
     val bid: BSONObjectID= BSONObjectID.parse(id).get
-    val t: JsObject = writer.writes(entity).as[JsObject]
+    val t: JsObject = writer.writes(domain).as[JsObject]
     dao.update(bid,t)
+  }
+
+  def updatePartial(id: String, jsObject: JsObject): Future[Unit] = {
+    val bid: BSONObjectID= BSONObjectID.parse(id).get
+    dao.updatePartial(bid,jsObject)
   }
 
   protected def transformMongoFields(jsObject: JsObject): JsObject = {

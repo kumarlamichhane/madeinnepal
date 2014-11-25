@@ -13,6 +13,7 @@ GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findC
 GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findContactByPhoneNumber(phoneNumber)
 GET         /contacts/:id                           controllers.ContactApi.findContactById(id)
 PUT         /contacts/:id                           controllers.ContactApi.updateContact(id)
+PUT         /contacts/:id/field                     controllers.ContactApi.updateContactField(id)
 
 #Hosts
 POST        /hosts                                  controllers.HostApi.createHost
@@ -23,15 +24,10 @@ GET         /hosts/:id                              controllers.HostApi.findHost
 
 
 #Utils
-POST        /upload/:reference/:contactId            controllers.Application.uploadFile(contactId: String,reference: String)
-GET         /downloadfile/:fileId                        controllers.Application.downloadFile(fileId)
-POST        /save/:id                                 controllers.Application.saveAttachment(id)
-GET        /downloadattachment/:id                                 controllers.Application.downloadAttachment(id)
-
-#POST        /uploadstream/:contactId                controllers.Application.uploadStream(contactId: String)
-
-
-#POST        /contacts/:id/attachments                   controllers.ContactApi.saveAttachment(id)
+POST        /upload/:reference/:contactId           controllers.Application.uploadFile(contactId: String,reference: String)
+GET         /downloadfile/:fileId                   controllers.Application.downloadFile(fileId)
+POST        /save/:id                               controllers.Application.saveAttachment(id)
+GET         /downloadattachment/:id                 controllers.Application.downloadAttachment(id)
 
 
 #Practice

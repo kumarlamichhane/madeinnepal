@@ -22,4 +22,5 @@ object ContactService extends BaseService[Contact](contactDao){
     contactDao.readAll(query).map(_.map( js => transformMongoFields(js)))
   }
 
+
 }

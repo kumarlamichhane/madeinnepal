@@ -23,7 +23,7 @@ trait BaseApi extends Controller with MongoController{
         t => service.insert(t).map{
           lastError =>
           Logger.debug(s"Successfully inserted with LastError: $lastError")
-          Ok
+          Ok(s"created contact $t")
         }
       }
     }.getOrElse(Future.successful(BadRequest("invalid json")))
@@ -61,6 +61,12 @@ trait BaseApi extends Controller with MongoController{
   }
 
 
+  def putPartial[T](id: String)(service: BaseService[T]): EssentialAction = Action.async(parse.json){
+    request=>{
+      val updateJsObj = request.body.as[JsObject]
+      service.updatePartial(id,updateJsObj).map(_=>Ok(Json.toJson(id)))
+    }
+  }
 
 
 }
