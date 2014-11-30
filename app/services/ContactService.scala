@@ -23,4 +23,5 @@ object ContactService extends BaseService[Contact](contactDao){
   }
 
 
+
 }

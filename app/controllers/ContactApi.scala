@@ -1,6 +1,7 @@
 package controllers
 
 
+import play.api.Logger
 import play.api.mvc._
 import play.modules.reactivemongo.{ReactiveMongoPlugin, MongoController}
 import play.api.libs.json._

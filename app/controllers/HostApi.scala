@@ -18,7 +18,7 @@ object HostApi extends BaseApi{
 
   val hostReader: Reads[Host] = implicitly[Reads[Host]]
   val hostService = new BaseService[Host](hostDao)
-  val contactService = new BaseService[Contact](contactDao)
+  //val contactService = new BaseService[Contact](contactDao)
 
   def createHost: EssentialAction= Action.async(parse.json){
     request=>{
@@ -33,8 +33,9 @@ object HostApi extends BaseApi{
 
           contacts.map{
             contact=> contact.map{
-              c=> val email = c.\("emailAddress").toString
-                  val mailBody = t.firstName+" needs " + bloodGroup + "please call him at " + t.phoneNumber
+              c=> val email = c.\("email").toString.replaceAll("\"","")
+                Logger.info(s"email found : $email")
+                  val mailBody = t.name+" needs " + bloodGroup + "please call him at " + t.phoneNumber
                 Application.sendMail(email,mailBody)
                 Logger.info(s" mail sent to  : $email")
             }

@@ -3,7 +3,6 @@ package controllers
 import play.api._
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc._
-import play.modules.reactivemongo.MongoController
 import services.BaseService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -12,7 +11,7 @@ import scala.concurrent.Future
 /**
  * Created by xplorer on 8/23/14.
  */
-trait BaseApi extends Controller with MongoController{
+trait BaseApi extends Controller{
 
   //post, get, put, delete
   def post[T](service: BaseService[T]): EssentialAction= Action.async(parse.json){
@@ -20,10 +19,10 @@ trait BaseApi extends Controller with MongoController{
 
       Json.fromJson(request.body)(service.reader).map{
      // request.body.validate[T].map{
-        t => service.insert(t).map{
-          lastError =>
-          Logger.debug(s"Successfully inserted with LastError: $lastError")
-          Ok(s"created contact $t")
+          t=> service.insert(t).map{
+              lastError =>
+              Logger.debug(s"Successfully inserted with LastError: $lastError")
+              Created(Json.toJson("created"))
         }
       }
     }.getOrElse(Future.successful(BadRequest("invalid json")))

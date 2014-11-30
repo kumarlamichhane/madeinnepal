@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Amit Chaulagain",
+        "phoneNumber": "9803693318",
+        "bloodGroup": "A +ve",
+        "address": "Kathmandu",
+        "email": "achaulagain123@gmail.com",
+        "mailOption":{"bloodGroup: true" ,"address":"true" , "all":"true"}
+    },
+    {
+
+        "name": "Amit Nepal",
+        "phoneNumber": "98049127713",
+        "bloodGroup": "A +ve",
+        "address": "Kathmandu",
+        "email": "amitynepal@gmail.com"
+    },
+    {
+        "firstName": "Kumar",
+        "lastName": "Lamichhane",
+        "phoneNumber": "9841389377",
+        "bloodGroup": "O +ve",
+        "address": "Kathmandu",
+        "emailAddress": "kumarlamichhane13@gmail.com"
+    },
+    {
+        "_id": "54702d33135104de67ca6e81",
+        "firstName": "Sumit",
+        "lastName": "Shrestha",
+        "phoneNumber": "9802021322",
+        "bloodGroup": "B +ve",
+        "address": "Kathmandu",
+        "emailAddress": "sumitpshrestha@gmail.com"
+    },
+    {
+        "_id": "54702d4e135104de67ca6e83",
+        "firstName": "Yogesh",
+        "lastName": "Basnet",
+        "phoneNumber": "9841482464",
+        "bloodGroup": "O +ve",
+        "address": "Kathmandu",
+        "emailAddress": "basnetyogesh27@gmail.com"
+    }
+]

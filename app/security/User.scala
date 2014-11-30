@@ -1,12 +1,35 @@
 package security
 
+
+import utils.CommonUtils._
+import play.api.Logger
+import play.api.libs.json.{Writes, Reads, JsObject, Json}
+import play.api.mvc.{Controller, Action}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
 /**
  * Created by xplorer on 11/25/14.
  */
-case class User(username: String, password: String) {
+case  class LoginEvent(username: String, password: String)
 
-  def checkPassword(password: String): Boolean = password==this.password
+object LoginEvent{
+  implicit val format = Json.format[LoginEvent]
+}
+
+case class User(username: String, password: String, group: Option[Group.Group])
+
+object User{
+  implicit val format = Json.format[User]
+ // val superAdmin = new User("kumar" , "1234" , Group.Super_Admin)
 
 }
 
-object User
+object Group extends Enumeration{
+  type Group = Value
+  val Super_Admin, Admin, Other = Value
+
+  implicit val readGroup: Reads[Group] = EnumUtils.enumReads(Group)
+  implicit val writeGroup: Writes[Group] = EnumUtils.enumWrites
+
+}
