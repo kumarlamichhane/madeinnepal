@@ -17,8 +17,8 @@ function createHost() {
 
 function formHost() {
 	
-	var bloodgroup = document.getElementById("bloodGroup");
-	var selected = bloodgroup.options[bloodgroup.selectedIndex].value;
+	var bloodGroup = document.getElementById("bloodGroup");
+	var selected = bloodGroup.options[bloodGroup.selectedIndex].value;
 	return JSON.stringify({
         "location": $('#location').val(),
         "name": $('#name').val(),

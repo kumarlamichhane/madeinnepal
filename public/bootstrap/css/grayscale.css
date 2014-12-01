@@ -256,7 +256,7 @@ a:focus {
     width: 100%;
     padding: 50px 0;
     color: #fff;
-    background: url(../img/downloads-bg.jpg) no-repeat center center scroll;
+
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -280,8 +280,10 @@ a:focus {
     }
 
     #map {
-        height: 400px;
-        margin-top: 250px;
+
+        height: 100%;
+        margin: 0px;
+        padding: 0px
     }
 }
 

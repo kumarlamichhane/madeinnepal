@@ -99,19 +99,26 @@ function renderContact(contact){
 }
 
 function formToJSON() {
-	
-	var bloodGroup = document.getElementById("bloodGroup");
+
+	var bloodGroup = document.getElementById("contactBloodGroup");
 	var selected = bloodGroup.options[bloodGroup.selectedIndex].value;
+    var checkBox = document.getElementById("mailOptBloodGroupAndAddress")
+    //var mailOpt = JSON.parse({"optBloodGroup":false,"optAddressBloodGroup":$('#mailOptBloodGroupAndAddress').checked,"optAddress":false,"optAll":false,"optNone":false})
 	return JSON.stringify({
-        "address": $('#address').val(),
-        "name": $('#name').val(),
-        "email": $('#email').val(),
-        "phoneNumber": $('#phoneNumber').val(),
-        "bloodGroup": selected
+        "address": $('#contactAddress').val(),
+        "name": $('#contactName').val(),
+        "email": $('#contactEmail').val(),
+        "phoneNumber": $('#contactPhoneNumber').val(),
+        "bloodGroup": selected,
+        "mailOption": checkBox.checked
+
     });
       
 }
 
 function test(){
-    alert(" hello ")
+
+    if(checkBox.checked == true)
+    { alert("true")}
+
 }

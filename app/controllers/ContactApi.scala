@@ -56,4 +56,12 @@ object ContactApi extends BaseApi {
     }
   }
 
+  def findContactByAddressAndBloodGroup(address: String, bloodGroup: String) = Action.async{
+    val contactsFromAddressWithBloodGroup: Future[Seq[JsObject]] = ContactService.findByAddressAndBloodGroup(address,bloodGroup)
+    contactsFromAddressWithBloodGroup.map{
+      case Nil => NotFound
+      case contacts: Seq[JsObject] => Ok(Json.toJson(contacts))
+    }
+  }
+
 }

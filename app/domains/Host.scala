@@ -5,8 +5,7 @@ import play.api.libs.json.Json
 /**
  * Created by xplorer on 8/21/14.
  */
-case class Host(_id:Option[String],
-                name: String,
+case class Host(name: String,
                 location: String,
                 phoneNumber: String,
                 bloodGroup: String)
@@ -17,7 +16,3 @@ case class Host(_id:Option[String],
 
   }
 
-object BloodGroup extends Enumeration{
-  type BloodGroup = Value
-
-}

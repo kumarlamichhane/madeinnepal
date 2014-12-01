@@ -14,6 +14,7 @@ import security.User
 object DaoFactory {
 
   val contactDao = new BaseDao[Contact]("contacts")
+  //val mailOptionDao = new BaseDao[MailOption]("mailoptions")
   val hostDao = new BaseDao[Host]("hosts")
   val fileDao = new BaseDao[UploadFile]("files")
   val gridFS =   new GridFS(ReactiveMongoPlugin.db, "documents")

@@ -40,8 +40,6 @@ GET         /users                                  security.UserApi.findAllUser
 GET         /users/:id                              security.UserApi.findUserById(id)
 GET         /users/name/:name                       security.UserApi.findUserByUsername(name)
 
-#Practice
-GET         /requestheader                          practices.Practice.checkRequestHeader
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                           controllers.Assets.at(path="/public", file)

@@ -24,7 +24,8 @@
         <link href="font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=true">
+        </script>
             <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>
@@ -34,7 +35,8 @@
 
     </head>
 
-    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" onload="showlocation()">
+
 
             <!-- Navigation -->
         <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
@@ -85,8 +87,8 @@
                                     <input type="text" class="form-control" id="name" placeholder="Name"></br>
                                     <input type="text" class="form-control" id="phoneNumber" placeholder="Phone"></br>
                                     <select id="bloodGroup" class="form-control">
-                                        <option id="A -ve">A1 -ve</option>
-                                        <option id="A +ve">A1 +ve</option>
+                                        <option id="A -ve">A -ve</option>
+                                        <option id="A +ve">A +ve</option>
                                         <option id="AB -ve">AB -ve</option>
                                         <option id="AB +ve">AB +ve</option>
                                         <option id="B -ve">B -ve</option>
@@ -112,14 +114,38 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <h1 class="brand-heading">Help us save Lives</h1>
-                    <p class="intro-text" style="color: #357ebd">Register with your information if u ever want 2 donate blood. u will receive email notification for blood request</p>
+                    <p class="intro-text" style="color: #357ebd">Register with your information if u ever want 2 donate blood. u will receive email notification for blood request if u want 2 b notified</p>
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon">
-                            <input type="text" class="form-control" id="name" placeholder="Name"></br>
-                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone"></br>
-                            <input type="text" class="form-control" id="email" placeholder="Email"></br>
-                            <input type="text" class="form-control" id="address" placeholder="Address"></br>
-                            <input type="text" class="form-control" id="bloodGroup" placeholder="Blood Group"></br>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"  id="mailOptAll" class="hidden"><!--All -->
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="mailOptAddress" class="hidden"> <!--Near ur location-->
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="mailOptBloodGroup" class="hidden"><!-- Ur BloodGroup-->
+                                </label>
+                                <label>
+                                    <input type="checkbox" id ="mailOptBloodGroupAndAddress">Mail me if a donor is needed near my location with my BloodGroup
+                                </label>
+
+                            </div>
+                            <input type="text" class="form-control" id="contactName" placeholder="Name"></br>
+                            <input type="text" class="form-control" id="contactPhoneNumber" placeholder="Phone"></br>
+                            <input type="text" class="form-control" id="contactEmail" placeholder="Email"></br>
+                            <input type="text" class="form-control" id="contactAddress" placeholder="Address"></br>
+                            <select id="contactBloodGroup" class="form-control">
+                                <option id="A -ve">A -ve</option>
+                                <option id="A +ve">A +ve</option>
+                                <option id="AB -ve">AB -ve</option>
+                                <option id="AB +ve">AB +ve</option>
+                                <option id="B -ve">B -ve</option>
+                                <option id="B +ve">B +ve</option>
+                                <option id="O +ve">O +ve</option>
+                                <option id="O -ve">O -ve</option>
+                            </select></br>
                             <input type="submit" class="form-control btn btn-default btn-lg"  style="color: green" value="B a Saver" onclick="createContact()"></br>
                         </span>
                     </div>
@@ -165,7 +191,41 @@
         </section>
 
             <!-- Map Section -->
-        <div id="map"></div>
+        <div id="map">
+
+            <script type="text/javascript">
+            function showlocation() {
+
+            navigator.geolocation.getCurrentPosition(initialize);
+            }
+
+            function initialize(position)
+            {
+            var lat=position.coords.latitude;
+            var long=position.coords.longitude;
+            var myCenter=new google.maps.LatLng(lat,long);
+            var mapProp = {
+            center:myCenter,
+            zoom:13,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById('map'),mapProp);
+
+            var marker=new google.maps.Marker({
+            position:myCenter
+            });
+            marker.setMap(map);
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+            </script>
+
+
+
+
+        </div>
 
             <!-- Footer -->
         <footer>
@@ -184,9 +244,8 @@
         <script src="js/jquery.easing.min.js"></script>
 
             <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
-            <!-- Custom Theme JavaScript -->
+        <!-- Custom Theme JavaScript -->
         <script src="js/grayscale.js"></script>
 
     </body>
