@@ -20,8 +20,16 @@
   object Application extends Controller with MongoController{
 
 
+    def home = Action{
+      Ok(views.html.home(" "))
+    }
+
     def index = Action{
-      Ok("...hello call4blood...")
+      Ok(views.html.bootstrap(" "))
+    }
+
+    def signUp = Action{
+      Ok(views.html.signup(" "))
     }
 
     def uploadFile(contactId: String,reference: String) = Action.async(parse.multipartFormData) { request =>
@@ -68,12 +76,18 @@
   //  }
 
 
-    def sendMail(to: String,body: String) = {
+    def sendmailtest(to: String, text: String) = Action{
+      sendMail(to,text)
+      Ok
+    }
+
+    def sendMail(to: String, body: String) = {
       val mail = use[MailerPlugin].email
       mail.setSubject("call 4 blood")
       mail.addRecipient(to)
       mail.addFrom("kumarlamichhane13@gmail.com")
       mail.send(body)
+      Logger.info(s" mail sent to  : $to")
       Future{Ok(Json.obj("mail sent to: " -> to))}
     }
 

@@ -5,10 +5,8 @@ import play.api.libs.json.Json
 /**
  * Created by xplorer on 8/21/14.
  */
-case class Host(_id:Option[String],
-                firstName: String,
-                lastName: String,
-                address:String,
+case class Host(name: String,
+                location: String,
                 phoneNumber: String,
                 bloodGroup: String)
 
@@ -17,3 +15,4 @@ case class Host(_id:Option[String],
     implicit  val format = Json.format[Host]
 
   }
+

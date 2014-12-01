@@ -1,9 +1,9 @@
 # Routes
-# This file defines all application routes (Higher priority routes first)
-# ~~~~
 
 # Home page
 GET         /                                       controllers.Application.index
+GET         /home                                   controllers.Application.home
+GET         /signup                                 controllers.Application.signUp
 
 #Contacts
 POST        /contacts                               controllers.ContactApi.createContact
@@ -22,16 +22,23 @@ GET         /hosts/address/:address                 controllers.HostApi.findHost
 GET         /hosts/bloodgroup/:bloodGroup           controllers.HostApi.findHostsByBloodGroup(bloodGroup)
 GET         /hosts/:id                              controllers.HostApi.findHostById(id)
 
-
 #Utils
 POST        /upload/:reference/:contactId           controllers.Application.uploadFile(contactId: String,reference: String)
 GET         /downloadfile/:fileId                   controllers.Application.downloadFile(fileId)
 POST        /save/:id                               controllers.Application.saveAttachment(id)
 GET         /downloadattachment/:id                 controllers.Application.downloadAttachment(id)
 
+GET         /sendmail/:to/:text                     controllers.Application.sendmailtest(to: String, text: String)
 
-#Practice
-GET         /requestheader                          practices.Practice.checkRequestHeader
+#Security
+POST        /login                                  security.LoginController.login
+GET         /logout                                 security.LoginController.logout
+
+#User
+POST        /users                                  security.UserApi.createUser
+GET         /users                                  security.UserApi.findAllUsers
+GET         /users/:id                              security.UserApi.findUserById(id)
+GET         /users/name/:name                       security.UserApi.findUserByUsername(name)
 
 
 # Map static resources from the /public folder to the /assets URL path

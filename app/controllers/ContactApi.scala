@@ -1,6 +1,7 @@
 package controllers
 
 
+import play.api.Logger
 import play.api.mvc._
 import play.modules.reactivemongo.{ReactiveMongoPlugin, MongoController}
 import play.api.libs.json._
@@ -52,6 +53,14 @@ object ContactApi extends BaseApi {
     contactsByPhoneNumber.map {
       case None => NotFound
       case Some(t) => Ok(Json.toJson(t))
+    }
+  }
+
+  def findContactByAddressAndBloodGroup(address: String, bloodGroup: String) = Action.async{
+    val contactsFromAddressWithBloodGroup: Future[Seq[JsObject]] = ContactService.findByAddressAndBloodGroup(address,bloodGroup)
+    contactsFromAddressWithBloodGroup.map{
+      case Nil => NotFound
+      case contacts: Seq[JsObject] => Ok(Json.toJson(contacts))
     }
   }
 

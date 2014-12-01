@@ -17,10 +17,14 @@ object ContactService extends BaseService[Contact](contactDao){
 
     }
 
-  def findByBloodGroup(bloodGroup: String): Future[Seq[JsObject]]={
+  def findByBloodGroup(bloodGroup: String): Future[Seq[JsObject]] = {
     val query = Json.obj("bloodGroup"-> bloodGroup)
     contactDao.readAll(query).map(_.map( js => transformMongoFields(js)))
   }
 
+  def findByAddressAndBloodGroup(address: String, bloodGroup: String): Future[Seq[JsObject]] = {
+    val query = Json.obj("address"-> address) ++ Json.obj("bloodGroup"->bloodGroup)
+    contactDao.readAll(query).map(_.map(js=> transformMongoFields(js)))
+  }
 
 }
