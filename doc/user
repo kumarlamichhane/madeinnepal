@@ -1,1 +1,3 @@
 {"username":"kumar","password":"1234"}
+
+{"username":"kumar","password":"1234", "group":"SuperAdmin"}

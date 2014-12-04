@@ -6,9 +6,12 @@ GET         /home                                   controllers.Application.home
 GET         /signup                                 controllers.Application.signUp
 
 #Contacts
+
 POST        /contacts                               controllers.ContactApi.createContact
 GET         /contacts                               controllers.ContactApi.findAllContacts
+
 GET         /contacts/address/:address              controllers.ContactApi.findContactsByAddress(address)
+
 GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findContactsByBloodGroup(bloodGroup)
 GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findContactByPhoneNumber(phoneNumber)
 GET         /contacts/:id                           controllers.ContactApi.findContactById(id)

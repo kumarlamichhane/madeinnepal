@@ -5,7 +5,7 @@
         "bloodGroup": "A +ve",
         "address": "Kathmandu",
         "email": "achaulagain123@gmail.com",
-        "mailOption":{"bloodGroup: true" ,"address":"true" , "all":"true"}
+        "mailOption":false
     },
     {
 
@@ -16,12 +16,12 @@
         "email": "amitynepal@gmail.com"
     },
     {
-        "firstName": "Kumar",
+        "name": "Kumar",
         "lastName": "Lamichhane",
         "phoneNumber": "9841389377",
         "bloodGroup": "O +ve",
         "address": "Kathmandu",
-        "emailAddress": "kumarlamichhane13@gmail.com"
+        "email": "kumarlamichhane13@gmail.com"
     },
     {
         "_id": "54702d33135104de67ca6e81",

@@ -17,7 +17,7 @@ object LoginEvent{
   implicit val format = Json.format[LoginEvent]
 }
 
-case class User(username: String, password: String, group: Option[Group.Group])
+case class User( _id: Option[String], username: String, password: String, group: Option[Group.Group])
 
 object User{
   implicit val format = Json.format[User]
@@ -27,7 +27,7 @@ object User{
 
 object Group extends Enumeration{
   type Group = Value
-  val Super_Admin, Admin, Other = Value
+  val SuperAdmin, Admin, Other = Value
 
   implicit val readGroup: Reads[Group] = EnumUtils.enumReads(Group)
   implicit val writeGroup: Writes[Group] = EnumUtils.enumWrites

@@ -1,9 +1,9 @@
 package practices
 
-import models.Contact
 import play.api.libs.json.{Json, JsObject}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import practices.Contact._
 
 object Practice{
 
@@ -33,19 +33,17 @@ object call4blood extends App{
  val contact2: JsObject = Json.obj("name"->"amit","phone"->"9803693318","mail"->"achaulagain123@gmail.com" ,
    "mailOption"->Json.obj("all"->true, "address"-> true))
 
- val contacts: Future[Seq[JsObject]] = Future(List(contact1,contact2))
+  //println(contact1.\("mail").toString.replaceAll("\"",""))
 
-  println(contact1.\("mail").toString.replaceAll("\"",""))
+ val futureContacts: Future[Seq[JsObject]] = Future(List(contact1,contact2))
 
-  val emails = contacts.map{
-    contact=> contact.map{
-      c=> val cont = c.as[Contact]; println(cont.email)
+ val futureContact: Future[Option[JsObject]] = Future(Option(contact1))
 
-    }
-  }
 
-  val c1 = contact1.\("mailOption")
+ val fContact= futureContact.map{
+   contacts => println
+ }
 
-  println(c1)
 
 }
+

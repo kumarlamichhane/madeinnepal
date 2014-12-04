@@ -1,15 +1,19 @@
 package controllers
 
-
+import security.LoginController.ActionSuperAdmin
+import scala.concurrent.duration._
+import scala.util.{Success, Failure}
+import models.Contact
 import play.api.Logger
 import play.api.mvc._
 import play.modules.reactivemongo.{ReactiveMongoPlugin, MongoController}
 import play.api.libs.json._
 import reactivemongo.bson.{BSONValue, BSONDocument,BSONObjectID}
 import reactivemongo.api.gridfs.{GridFS, ReadFile, DefaultFileToSave}
+import security.User
 import services.ContactService
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 import factories.ServiceFactory._
 
 /**
@@ -27,22 +31,40 @@ object ContactApi extends BaseApi {
 
   def updateContactField(id: String) = putPartial(id)(contactService)
 
+  //Secured
   def findContactsByAddress(address: String) = Action.async {
+    request=>
 
-    val contactsByAddress: Future[Seq[JsObject]] = ContactService.findByAddress(address)
-    contactsByAddress.map {
-      contacts => //val count =contacts.size.toString
-        Ok(Json.toJson(contacts))
-    }
+      val userIdInSession = request.session.get("userId").get.toString
+      val futureUser: Future[Option[JsObject]] = userService.findById(userIdInSession)
+      val userGroup = futureUser.map{
+        case None => Ok(Json.toJson("not present"))
+        case Some(u) => {
+          val userObj = u.as[User]
+          Logger.info(s"found user $u")
+          val group = userObj.group.get.toString
+          group
+        }
+      }
+      Logger.info(s"user group $userGroup")
+
+      userGroup.map{
+        case "SuperAdmin" => {
+          val contactsByAddress: Future[Seq[JsObject]] = ContactService.findByAddress(address.capitalize)
+          val c = Await.result(contactsByAddress, 10 seconds)
+          Ok(Json.toJson(c))
+        }
+        case _ => Ok("Unauthorized")
+      }
   }
+
 
   def findContactsByBloodGroup(bloodGroup: String) = Action.async {
 
     val contactsByBloodGroup: Future[Seq[JsObject]] = ContactService.findByBloodGroup(bloodGroup)
     contactsByBloodGroup.map {
       case Nil => NotFound
-      case contacts: Seq[JsObject] =>
-        Ok(Json.toJson(contacts))
+      case contacts: Seq[JsObject] => Ok(Json.toJson(contacts))
     }
   }
 

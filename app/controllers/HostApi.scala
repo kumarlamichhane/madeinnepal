@@ -52,7 +52,7 @@ object HostApi extends BaseApi{
                 val contactAddress: String = contact.address.get
                 val contactEmail: String = contact.email.get
 
-                val mailBody = t.name+" needs " + requiredBloodGroup + " if u want 2 help call him at " + t.phoneNumber
+                val mailBody = t.name+" needs " + requiredBloodGroup + " if u want 2 help, call him at " + t.phoneNumber
 
                 mailOpt match {
                   case true => if(contactBloodGroup==requiredBloodGroup && contactAddress==hostLocation) Application.sendMail(contactEmail,mailBody)

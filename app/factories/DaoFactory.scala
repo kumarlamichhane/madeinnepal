@@ -19,5 +19,6 @@ object DaoFactory {
   val fileDao = new BaseDao[UploadFile]("files")
   val gridFS =   new GridFS(ReactiveMongoPlugin.db, "documents")
   val userDao = new BaseDao[User]("users")
+  val sessionDao = new BaseDao[User]("sessions")
 
 }

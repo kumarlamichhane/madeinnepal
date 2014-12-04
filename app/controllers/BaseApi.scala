@@ -3,6 +3,7 @@ package controllers
 import play.api._
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc._
+import security.LoginController.ActionSuperAdmin
 import services.BaseService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -28,12 +29,12 @@ trait BaseApi extends Controller{
     }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
 
-  def getAll[T](service: BaseService[T]): EssentialAction = Action.async{
+  def getAll[T](service: BaseService[T]): EssentialAction = ActionSuperAdmin.async{
 
     val query = Json.obj()
     val list = service.findAll(query)
     list.map{
-      case Nil=>NotFound
+      case Nil=>NotFound(Json.toJson("no data"))
       case l:Seq[JsObject] => Ok(Json.toJson(l))
     }
   }
@@ -42,7 +43,7 @@ trait BaseApi extends Controller{
 
     val doc = service.findById(id)
     doc.map{
-      case None => NotFound
+      case None => NotFound(Json.toJson("no data"))
       case Some(t)=> Ok(Json.toJson(t))
     }
   }
