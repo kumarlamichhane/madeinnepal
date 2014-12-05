@@ -29,7 +29,7 @@ trait BaseApi extends Controller{
     }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
 
-  def getAll[T](service: BaseService[T]): EssentialAction = ActionSuperAdmin.async{
+  def getAll[T](service: BaseService[T]): EssentialAction = Action.async{
 
     val query = Json.obj()
     val list = service.findAll(query)

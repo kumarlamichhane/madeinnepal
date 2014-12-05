@@ -1,5 +1,6 @@
   package controllers
 
+  import scala.concurrent.duration._
   import java.io.{File, FileInputStream}
 
   import reactivemongo.api.gridfs.{ReadFile, DefaultFileToSave}
@@ -12,7 +13,8 @@
   import play.api.libs.json.{Reads,Json}
   import reactivemongo.bson.{BSONObjectID, BSONValue, BSONDocument}
   import play.api.libs.concurrent.Execution.Implicits.defaultContext
-  import scala.concurrent.Future
+  import security.{User, UserService}
+  import scala.concurrent.{Await, Future}
   import factories.ServiceFactory._
   import factories.DaoFactory._
   import play.api.Play.current
@@ -24,9 +26,21 @@
       Ok(views.html.home(" "))
     }
 
-    def index = Action{
-      Ok(views.html.bootstrap(" "))
+    def admin = Action{
+      Ok(views.html.admin(" "))
     }
+
+    def adminHome = Action{
+     request=>
+        val userId = request.session.get("userId").get.toString
+        val futureUser = UserService.findById(userId)
+        val user = Await.result(futureUser,10 seconds)
+        val userName = user.get.as[User].username
+
+      Ok(views.html.adminhome(userName))
+    }
+
+
 
     def signUp = Action{
       Ok(views.html.signup(" "))
@@ -53,7 +67,7 @@
         }
       }.getOrElse {
         Future {
-          Redirect(routes.Application.index).flashing(
+          Redirect(routes.Application.home).flashing(
             "error" -> "Missing file"
           )
         }

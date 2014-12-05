@@ -1,22 +1,236 @@
 @(message: String)
 
-@main("Host form"){
+@main("Call 4 Blood"){
+<!DOCTYPE html>
+    <html lang="en">
 
-	<script src="@routes.Assets.at("javascripts/host.js")" type="text/javascript"></script>
-	<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-		<input type="text" id="name" placeholder="name"></br>
-		<select id="bloodGroup">
-			<option id="A -ve">A1 -ve</option>
-			<option id="A +ve">A1 +ve</option>
-			<option id="AB -ve">AB -ve</option>
-			<option id="AB +ve">AB +ve</option>
-			<option id="B -ve">B -ve</option>
-			<option id="B +ve">B +ve</option>
-			<option id="O +ve">O +ve</option>
-			<option id="O -ve">O -ve</option>	  
-		</select></br>
-		<input type="text" id="phoneNumber" placeholder="phone number" size="10"></br>
-		<input type="text" id="location" placeholder="location"></br>
-		<input type="submit" value="Ask for Blood" onclick="createHost()"></br>
-		
+        <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" onload="showlocation()">
+
+
+                <!-- Navigation -->
+            <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand page-scroll" href="#page-top">
+                            <i class="fa fa-play-circle"></i>  <span class="light">Call 4</span> Blood
+                        </a>
+                    </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                        <ul class="nav navbar-nav">
+                                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                            <li class="hidden">
+                                <a href="#page-top"></a>
+                            </li>
+                            <li>
+                                <a class="page-scroll" href="#signup">Sign Up</a>
+                            </li>
+                            <li>
+                                <a class="page-scroll" href="#about">About Us</a>
+                            </li>
+                            <li>
+                                <a class="page-scroll" href="#contact">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                        <!-- /.navbar-collapse -->
+                </div>
+                    <!-- /.container -->
+            </nav>
+
+                <!-- Intro Header -->
+            <header class="intro">
+                <div class="intro-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h1 class="brand-heading">Help us save Lives</h1>
+                                <p class="intro-text">Ask blood donors 2 donate blood</p>
+
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="text" class="form-control" id="name" placeholder="Name"></br>
+                                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone"></br>
+                                        <select id="bloodGroup" class="form-control">
+                                            <option id="A -ve">A -ve</option>
+                                            <option id="A +ve">A +ve</option>
+                                            <option id="AB -ve">AB -ve</option>
+                                            <option id="AB +ve">AB +ve</option>
+                                            <option id="B -ve">B -ve</option>
+                                            <option id="B +ve">B +ve</option>
+                                            <option id="O +ve">O +ve</option>
+                                            <option id="O -ve">O -ve</option>
+                                        </select></br>
+                                        <input type="text" class="form-control" id="location" placeholder="Location"></br>
+                                    </span>
+                                </div>
+                                <input type="submit" class="btn btn-circle page-scroll" style = "background-color: red" value="" onclick="createHost()">
+
+                                <i class="fa fa-angle-double-down animated"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+                <!-- signup Section -->
+            <section id="signup" class="container content-section text-center">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h1 class="brand-heading">Help us save Lives</h1>
+                        <p class="intro-text" style="color: #357ebd">Register with your information if u ever want 2 donate blood. u will receive email notification for blood request if u want 2 b notified</p>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-addon">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"  id="mailOptAll" class="hidden"><!--All -->
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" id="mailOptAddress" class="hidden"> <!--Near ur location-->
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" id="mailOptBloodGroup" class="hidden"><!-- Ur BloodGroup-->
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" id ="mailOptBloodGroupAndAddress">Mail me if a donor is needed near my location with my BloodGroup
+                                    </label>
+
+                                </div>
+                                <input type="text" class="form-control" id="contactName" placeholder="Name"></br>
+                                <input type="text" class="form-control" id="contactPhoneNumber" placeholder="Phone"></br>
+                                <input type="text" class="form-control" id="contactEmail" placeholder="Email"></br>
+                                <input type="text" class="form-control" id="contactAddress" placeholder="Address"></br>
+                                <select id="contactBloodGroup" class="form-control">
+                                    <option id="A -ve">A -ve</option>
+                                    <option id="A +ve">A +ve</option>
+                                    <option id="AB -ve">AB -ve</option>
+                                    <option id="AB +ve">AB +ve</option>
+                                    <option id="B -ve">B -ve</option>
+                                    <option id="B +ve">B +ve</option>
+                                    <option id="O +ve">O +ve</option>
+                                    <option id="O -ve">O -ve</option>
+                                </select></br>
+                                <input type="submit" class="form-control btn btn-default btn-lg"  style="color: green" value="B a Saver" onclick="createContact()"></br>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+                <!-- Download Section -->
+            <section id="about" class="content-section text-center">
+                <div class="download-section">
+                    <div class="container">
+                        <div class="fb-like" data-href="https://www.facebook.com/pages/Call-for-Blood/335496066616513?ref=hl"
+                        data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <h2>About us</h2>
+                            <p>we r  trying 2 save lives .... and need ur help in this...</p>
+                            <a href="#signup" class="btn btn-default btn-lg">B a member</a>
+
+                            <div id="fb-root"></div>
+                            <script>(function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s); js.id = id;
+                            js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.0";
+                            fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+                <!-- Contact Section -->
+            <section id="contact" class="container content-section text-center">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h2>Contact booleAnt</h2>
+                        <p>Feel free to contact us to provide some feedback, give us suggestions and keep helping, or to just say hello!</p>
+                        @*<p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>*@
+                        @*</p>*@
+                        <ul class="list-inline banner-social-buttons">
+                            <li>
+                                <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+                <!-- Map Section -->
+            <div id="map">
+
+                <script type="text/javascript">
+                function showlocation() {
+
+                navigator.geolocation.getCurrentPosition(initialize);
+                }
+
+                function initialize(position)
+                {
+                var lat=position.coords.latitude;
+                var long=position.coords.longitude;
+                var myCenter=new google.maps.LatLng(lat,long);
+                var mapProp = {
+                center:myCenter,
+                zoom:13,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById('map'),mapProp);
+
+                var marker=new google.maps.Marker({
+                position:myCenter
+                });
+                marker.setMap(map);
+                }
+
+                google.maps.event.addDomListener(window, 'load', initialize);
+
+                </script>
+
+
+
+
+            </div>
+
+                <!-- Footer -->
+            <footer>
+                <div class="container text-center">
+                    <p>copyright &copy; booleAnt</p>
+                </div>
+            </footer>
+
+                <!-- jQuery -->
+            <script src="js/jquery.js"></script>
+
+                <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
+
+                <!-- Plugin JavaScript -->
+            <script src="js/jquery.easing.min.js"></script>
+
+                <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+
+                <!-- Custom Theme JavaScript -->
+            <script src="js/grayscale.js"></script>
+
+        </body>
+
+    </html>
 }

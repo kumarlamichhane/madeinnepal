@@ -13,8 +13,7 @@ case class Contact(_id : Option[String] = Option(BSONObjectID.generate.stringify
                    bloodGroup: Option[String],
                    address: Option[String],
                    email:Option[String],
-                   mailOption:Option[Boolean],
-                   emailAuthToken: Option[String]
+                   mailOption:Option[Boolean]
                    )
 
 

@@ -14,7 +14,7 @@ object FutureDemo extends App {
     x => x.length
   }
 val k = xLength.flatMap(x=>Future(x))
-  k
+
 
 
 //  val f2 = f1 flatMap { x => Future(x.length) }

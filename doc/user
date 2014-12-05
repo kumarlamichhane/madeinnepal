@@ -1,3 +1,4 @@
 {"username":"kumar","password":"1234"}
 
-{"username":"kumar","password":"1234", "group":"SuperAdmin"}
+{"username":"kumar", "password":"1234", "phoneNumber":"9841389377", "group":"SuperAdmin", "status": true, "emailAddress":"kumarlamichhane13@gmail.com"}
+{"username":"amit","password":"1234", "phoneNumber":"9803693318", "group":"Admin", "status": false, "emailAddress":"achaulagain123@gmail.com"}

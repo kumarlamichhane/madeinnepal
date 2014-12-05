@@ -17,7 +17,13 @@ object LoginEvent{
   implicit val format = Json.format[LoginEvent]
 }
 
-case class User( _id: Option[String], username: String, password: String, group: Option[Group.Group])
+case class User( _id: Option[String],
+                 emailAddress: String,
+                 username: String,
+                 password: String,
+                 status: Boolean= false,
+                 group: Option[Group.Group],
+                 phoneNumber: String)
 
 object User{
   implicit val format = Json.format[User]

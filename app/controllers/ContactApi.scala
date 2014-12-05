@@ -31,31 +31,14 @@ object ContactApi extends BaseApi {
 
   def updateContactField(id: String) = putPartial(id)(contactService)
 
-  //Secured
+
   def findContactsByAddress(address: String) = Action.async {
-    request=>
 
-      val userIdInSession = request.session.get("userId").get.toString
-      val futureUser: Future[Option[JsObject]] = userService.findById(userIdInSession)
-      val userGroup = futureUser.map{
-        case None => Ok(Json.toJson("not present"))
-        case Some(u) => {
-          val userObj = u.as[User]
-          Logger.info(s"found user $u")
-          val group = userObj.group.get.toString
-          group
-        }
-      }
-      Logger.info(s"user group $userGroup")
-
-      userGroup.map{
-        case "SuperAdmin" => {
-          val contactsByAddress: Future[Seq[JsObject]] = ContactService.findByAddress(address.capitalize)
-          val c = Await.result(contactsByAddress, 10 seconds)
-          Ok(Json.toJson(c))
-        }
-        case _ => Ok("Unauthorized")
-      }
+    val contactsByAddress: Future[Seq[JsObject]] = ContactService.findByAddress(address.capitalize)
+    contactsByAddress.map{
+      case Nil=> NotFound
+      case contacts: Seq[JsObject] => Ok(Json.toJson(contacts))
+    }
   }
 
 
