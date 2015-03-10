@@ -10,7 +10,7 @@
   import play.api._
   import com.typesafe.plugin._
   import domains._
-  import play.api.libs.json.{Reads,Json}
+  import play.api.libs.json.{JsValue, Reads, Json}
   import reactivemongo.bson.{BSONObjectID, BSONValue, BSONDocument}
   import play.api.libs.concurrent.Execution.Implicits.defaultContext
   import security.{User, UserService}
@@ -22,30 +22,88 @@
   object Application extends Controller with MongoController{
 
 
+    
+    def location = Action{
+      Ok(views.html.location(" "))
+    }
+
+    def saveLocation= Action{
+      request=>
+        val host = request.remoteAddress
+        val lat = request.getQueryString("lat")
+        val long = request.getQueryString("long")
+        Ok(Json.toJson(s" host: $host lat: $lat long: $long"))
+    }
+
+    def superAdminHome = Action{
+      Ok(views.html.superadminhome(""))
+      
+    }
+    
+    def cart = Action{
+      Ok(views.html.cart( ""))
+
+    }
+
+    def bill(id: String) = Action{
+        Ok(views.html.bill(id))
+    }
+    
     def home = Action{
-      Ok(views.html.home(" "))
+      request =>
+
+      Ok(views.html.home( ""))
     }
-
-    def admin = Action{
-      Ok(views.html.admin(" "))
-    }
-
-    def adminHome = Action{
-     request=>
-        val userId = request.session.get("userId").get.toString
-        val futureUser = UserService.findById(userId)
-        val user = Await.result(futureUser,10 seconds)
-        val userName = user.get.as[User].username
-
-      Ok(views.html.adminhome(userName))
-    }
-
-
 
     def signUp = Action{
-      Ok(views.html.signup(" "))
+      Ok(views.html.signup(""))
+    }
+    
+    def checkoutPage = Action{
+      request=>
+        if(request.session.get("cartID")!=None) {
+          val cartId = request.session.get("cartID").get
+          Logger.info(s"checking out cart with ID: $cartId")
+          Ok(views.html.checkout(cartId))
+        }else{
+
+          Ok(views.html.checkout("None"))
+        }
+
+      
+    }
+  
+    def productPage= Action{
+      request=>
+        if(request.session.get("cartID")!=None) {
+          val cartId = request.session.get("cartID").get
+          Ok(views.html.allproducts(cartId))
+        }else{
+
+          Ok(views.html.allproducts("None"))
+        }
+
+      
+    }
+    
+    def orderPage = Action{
+      Ok(views.html.orders(" "))
+      
     }
 
+    def shop = Action{
+      request=>
+        if(request.session.get("cartID")!=None) {
+          Logger.info(s"cartId in session directing 2 shop page")
+          val cartId = request.session.get("cartID").get
+          Ok(views.html.shop(cartId))
+        }else{
+
+          Ok(views.html.shop("None"))
+        }
+
+    }
+    
     def uploadFile(contactId: String,reference: String) = Action.async(parse.multipartFormData) { request =>
       val refCheck = request.body.files(0).ref
       Logger.info(s"ref ????: $refCheck")
@@ -61,7 +119,7 @@
 
         //File(name: String, mimeType: String, description: String, path: String, reference: Reference)
         val file : UploadFile = UploadFile(contactId, " " ," ", " ",reference)
-        fileService.insert(file)
+        fileService.insert(file)("")
         Future {
           Ok("File uploaded")
         }
@@ -97,12 +155,13 @@
 
     def sendMail(to: String, body: String) = {
       val mail = use[MailerPlugin].email
-      mail.setSubject("call 4 blood")
+      mail.setSubject("Made in Nepal")
       mail.addRecipient(to)
       mail.addFrom("kumarlamichhane13@gmail.com")
+      //mail.addCc("","")
       mail.send(body)
       Logger.info(s" mail sent to  : $to")
-      Future{Ok(Json.obj("mail sent to: " -> to))}
+      Future{Json.obj("mail sent to: " -> to)}
     }
 
     def createFolder(contactId: String):Boolean = {
@@ -124,7 +183,7 @@
         file <- futureFile
         // here, the file is completely uploaded, so it is time to update the article
         updateResult <- {
-          gridFS.files.update(
+          gridFS.files. update(
             BSONDocument("_id" -> file.id),
             BSONDocument("$set" -> BSONDocument("contactID" -> id)))
         }

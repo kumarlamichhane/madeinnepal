@@ -1,0 +1,461 @@
+@(cartId: String)
+
+
+@mainshop("Checkout"){
+
+
+    <label type="hidden" style = "{display: none}" id ="cart_id">@cartId</label>
+
+    <script>
+    var id = $('#cart_id' ).text().toString()
+    console.log(id)
+    if(id!="None") {
+        getCartItems2(id)
+    }else{
+        
+        window.location.replace("/page/shop")
+        
+    }
+    </script>
+
+    <div class="wrapper">
+            <!--=== Header v5 ===-->
+        <div class="header-v5 header-static">
+                <!-- Topbar v3 -->
+            <div class="topbar-v3">
+                <div class="search-open">
+                    <div class="container">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="search-close"><i class="icon-close"></i></div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                                <!-- Topbar Navigation -->
+                            <ul class="left-topbar">
+
+                            </ul><!--/end left-topbar-->
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-inline right-topbar pull-right">
+                                <li><a href="#">Account</a></li>
+                                <li><a href="shop-ui-add-to-cart.html">Wishlist (0)</a></li>
+                                <li><a href="shop-ui-login.html">Login</a> | <a href="shop-ui-register.html">Register</a></li>
+                                <li><i class="search fa fa-search search-button"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!--/container-->
+            </div>
+                <!-- End Topbar v3 -->
+
+                <!-- Navbar -->
+            <div class="navbar navbar-default mega-menu" role="navigation">
+                <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/page/shop">
+                            <img id="logo-header" src="@routes.Assets.at("/shop/img/logo.png")" alt="Logo">
+                        </a>
+                    </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-responsive-collapse">
+                            <!-- Badge -->
+                        <ul class="list-inline shop-badge badge-lists badge-icons pull-right">
+                            <li>
+                                <a href="#"><img src ="@routes.Assets.at("/shop/img/cart.png")"/></a>
+                                <span id="no-of-items" class="badge badge-sea rounded-x">0</span>
+
+                            </li>
+                            <li class="subtotal">
+                                <div class="overflow-h margin-bottom-10">
+                                    <span>Subtotal</span>
+                                    <span id="total-amount" class="pull-right subtotal-cost">Rs.00.00</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6" id="cart_top">
+                                        <div class="clear_cart">
+                                            <a class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">Clear Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="/page/checkout" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">Checkout</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                            <!-- End Badge -->
+
+                        <ul class="nav navbar-nav">
+                                <!-- Pages -->
+                            <li class="dropdown active">
+
+                                <a id="jacket" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" onclick="getProductsByCategory('Jacket')">
+                                    Jackets
+                                </a>
+                                @*<ul class="dropdown-menu">*@
+                                @*<li><a onclick="alert('Man')">Man</a></li>*@
+                                @*<li><a onclick="alert('Ladies')">Ladies</a></li>*@
+                                @*</ul>*@
+                            </li>
+                                <!-- End Pages -->
+
+                                <!-- Promotion -->
+                            <li class="dropdown">
+                                <a id="shoe" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" onclick="getProductsByCategory('Shoe')">
+                                    Shoes
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @*<li class="dropdown-submenu">*@
+                                    @*<a href="javascript:void(0);">Jeans</a>*@
+                                    @*<ul class="dropdown-menu">*@
+                                    @*<li><a href="#">Skinny Jeans</a></li>*@
+                                    @*</ul>*@
+                                    @*</li>*@
+                                    @*<li class="dropdown-submenu">*@
+                                    @*<a href="javascript:void(0);">Shoes</a>*@
+                                    @*<ul class="dropdown-menu">*@
+                                    @*<li><a href="#">Sandals</a></li>*@
+
+                                    @*</ul>*@
+                                    @*</li>*@
+                                </ul>
+                            </li>
+                                <!-- End Promotion -->
+                            <li class="dropdown active">
+
+                                <a id="jacket" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" onclick="getProductsByCategory('Glass')">
+                                    Glasses
+                                </a>
+                                @*<ul class="dropdown-menu">*@
+                                @*<li><a onclick="alert('Man')">Man</a></li>*@
+                                @*<li><a onclick="alert('Ladies')">Ladies</a></li>*@
+                                @*</ul>*@
+                            </li>
+
+                        </ul>
+                    </div><!--/navbar-collapse-->
+                </div>
+            </div>
+                <!-- End Navbar -->
+        </div>
+            <!--=== End Header v5 ===-->
+
+            <!--=== Breadcrumbs v4 ===-->
+        <div class="breadcrumbs-v4">
+            <div class="container">
+                <span class="page-name">Check Out</span>
+                <h1>Maecenas <span class="shop-green">enim</span> sapien</h1>
+                <ul class="breadcrumb-v4-in">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Product</a></li>
+                    <li class="active">Shopping Cart</li>
+                </ul>
+            </div><!--/end container-->
+        </div>
+            <!--=== End Breadcrumbs v4 ===-->
+
+            <!--=== Content Medium Part ===-->
+        <div class="content-md margin-bottom-30">
+            <div class="container">
+                <form class="shopping-cart" action="#">
+                    <div>
+                        <div class="header-tags">
+                            <div class="overflow-h">
+                                <h2>Shopping Cart</h2>
+                                <p>Review &amp; edit your product</p>
+
+                            </div>
+                        </div>
+                        <section>
+                            <div class="table-responsive">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Price</th>
+                                            <th>Qty</th>
+                                            <th>Total</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cart_items">
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <div class="header-tags">
+                            <div class="overflow-h">
+                                <h2>Billing info</h2>
+                                <p>Shipping and address infot</p>
+                                <i class="rounded-x fa fa-home"></i>
+                            </div>
+                        </div>
+                        <section class="billing-info">
+                            <div class="row">
+                                <div class="col-md-6 md-margin-bottom-40">
+                                    <h2 class="title-type">Billing Address</h2>
+                                    <div class="billing-info-inputs checkbox-list">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input id="name" type="text" placeholder="Name" name="name" class="form-control required">
+                                                <input id="email" type="text" placeholder="Email" name="email" class="form-control required email">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input id="phone" type="tel" placeholder="Phone" name="phone" class="form-control required">
+                                            </div>
+                                        </div>
+                                        <input id="city" type="text" placeholder="City" name="city" class="form-control required">
+                                        <input id="street" type="text" placeholder="Street" name="street" class="form-control required">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <input id="houseNo" type="text" placeholder="House Number" name="houseNumber" class="form-control required">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                @*<input id="zip" type="text" placeholder="Zip/Postal Code" name="zip" class="form-control required">*@
+                                            </div>
+                                        </div>
+
+                                            <input class="btn-u-split-green" type="button" onclick="checkout()" value="Checkout">
+
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <h2 class="title-type">Location</h2>
+                                    <div class="billing-info-inputs checkbox-list">
+                                        <div class="row">
+                                            
+                                            google map goes here
+                                        </div>
+                                        <div class="row">
+                                            <input type="button" id="showLocation" value="Share My Location"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        @*<div class="header-tags">*@
+                            @*<div class="overflow-h">*@
+                                @*<h2>Payment</h2>*@
+                                @*<p>Select Payment method</p>*@
+                                @*<i class="rounded-x fa fa-credit-card"></i>*@
+                            @*</div>*@
+                        @*</div>*@
+                        @*<section>*@
+                            @*<div class="row">*@
+                                @*<div class="col-md-6 md-margin-bottom-50">*@
+                                    @*<h2 class="title-type">Choose a payment method</h2>*@
+                                        @*<!-- Accordion -->*@
+                                    @*<div class="accordion-v2">*@
+                                        @*<div class="panel-group" id="accordion">*@
+                                            @*<div class="panel panel-default">*@
+                                                @*<div class="panel-heading">*@
+                                                    @*<h4 class="panel-title">*@
+                                                        @*<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">*@
+                                                            @*<i class="fa fa-credit-card"></i>*@
+                                                            @*Credit or Debit Card*@
+                                                        @*</a>*@
+                                                    @*</h4>*@
+                                                @*</div>*@
+                                                @*<div id="collapseOne" class="panel-collapse collapse in">*@
+                                                    @*<div class="panel-body cus-form-horizontal">*@
+                                                        @*<div class="form-group">*@
+                                                            @*<label class="col-sm-4 no-col-space control-label">Cardholder Name</label>*@
+                                                            @*<div class="col-sm-8">*@
+                                                                @*<input type="text" class="form-control required" name="cardholder" placeholder="">*@
+                                                            @*</div>*@
+                                                        @*</div>*@
+                                                        @*<div class="form-group">*@
+                                                            @*<label class="col-sm-4 no-col-space control-label">Card Number</label>*@
+                                                            @*<div class="col-sm-8">*@
+                                                                @*<input type="text" class="form-control required" name="cardnumber" placeholder="">*@
+                                                            @*</div>*@
+                                                        @*</div>*@
+                                                        @*<div class="form-group">*@
+                                                            @*<label class="col-sm-4 no-col-space control-label">Payment Types</label>*@
+                                                            @*<div class="col-sm-8">*@
+                                                                @*<ul class="list-inline payment-type">*@
+                                                                    @*<li><i class="fa fa-cc-paypal"></i></li>*@
+                                                                    @*<li><i class="fa fa-cc-visa"></i></li>*@
+                                                                    @*<li><i class="fa fa-cc-mastercard"></i></li>*@
+                                                                    @*<li><i class="fa fa-cc-discover"></i></li>*@
+                                                                @*</ul>*@
+                                                            @*</div>*@
+                                                        @*</div>*@
+                                                        @*<div class="form-group">*@
+                                                            @*<label class="col-sm-4">Expiration Date</label>*@
+                                                            @*<div class="col-sm-8 input-small-field">*@
+                                                                @*<input type="text" name="mm" placeholder="MM" class="form-control required sm-margin-bottom-20">*@
+                                                                @*<span class="slash">/</span>*@
+                                                                @*<input type="text" name="yy" placeholder="YY" class="form-control required">*@
+                                                            @*</div>*@
+                                                        @*</div>*@
+                                                        @*<div class="form-group">*@
+                                                            @*<label class="col-sm-4 no-col-space control-label">CSC</label>*@
+                                                            @*<div class="col-sm-8 input-small-field">*@
+                                                                @*<input type="text" name="number" placeholder="" class="form-control required">*@
+                                                                @*<a href="#">What's this?</a>*@
+                                                            @*</div>*@
+                                                        @*</div>*@
+                                                    @*</div>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                            @*<div class="panel panel-default">*@
+                                                @*<div class="panel-heading">*@
+                                                    @*<h4 class="panel-title">*@
+                                                        @*<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">*@
+                                                            @*<i class="fa fa-paypal"></i>*@
+                                                            @*Pay with PayPal*@
+                                                        @*</a>*@
+                                                    @*</h4>*@
+                                                @*</div>*@
+                                                @*<div id="collapseTwo" class="panel-collapse collapse">*@
+                                                    @*<div class="content margin-left-10">*@
+                                                        @*<a href="#"><img src="../../../../www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_150x38.png" alt="PayPal"></a>*@
+                                                    @*</div>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                        @*<!-- End Accordion -->*@
+                                @*</div>*@
+
+                                @*<div class="col-md-6">*@
+                                    @*<h2 class="title-type">Frequently asked questions</h2>*@
+                                        @*<!-- Accordion -->*@
+                                    @*<div class="accordion-v2 plus-toggle">*@
+                                        @*<div class="panel-group" id="accordion-v2">*@
+                                            @*<div class="panel panel-default">*@
+                                                @*<div class="panel-heading">*@
+                                                    @*<h4 class="panel-title">*@
+                                                        @*<a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseOne-v2">*@
+                                                            @*What payments methods can I use?*@
+                                                        @*</a>*@
+                                                    @*</h4>*@
+                                                @*</div>*@
+                                                @*<div id="collapseOne-v2" class="panel-collapse collapse in">*@
+                                                    @*<div class="panel-body">*@
+                                                        @*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.*@
+                                                    @*</div>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                            @*<div class="panel panel-default">*@
+                                                @*<div class="panel-heading">*@
+                                                    @*<h4 class="panel-title">*@
+                                                        @*<a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseTwo-v2">*@
+                                                            @*Can I use gift card to pay for my purchase?*@
+                                                        @*</a>*@
+                                                    @*</h4>*@
+                                                @*</div>*@
+                                                @*<div id="collapseTwo-v2" class="panel-collapse collapse">*@
+                                                    @*<div class="panel-body">*@
+                                                        @*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.*@
+                                                    @*</div>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                            @*<div class="panel panel-default">*@
+                                                @*<div class="panel-heading">*@
+                                                    @*<h4 class="panel-title">*@
+                                                        @*<a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseThree-v2">*@
+                                                            @*Will I be charged when I place my order?*@
+                                                        @*</a>*@
+                                                    @*</h4>*@
+                                                @*</div>*@
+                                                @*<div id="collapseThree-v2" class="panel-collapse collapse">*@
+                                                    @*<div class="panel-body">*@
+                                                        @*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.*@
+                                                    @*</div>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                            @*<div class="panel panel-default">*@
+                                                @*<div class="panel-heading">*@
+                                                    @*<h4 class="panel-title">*@
+                                                        @*<a data-toggle="collapse" data-parent="#accordion-v2" href="#collapseFour-v2">*@
+                                                            @*How long will it take to get my order?*@
+                                                        @*</a>*@
+                                                    @*</h4>*@
+                                                @*</div>*@
+                                                @*<div id="collapseFour-v2" class="panel-collapse collapse">*@
+                                                    @*<div class="panel-body">*@
+                                                        @*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit, felis vel tincidunt sodales, urna metus rutrum leo, sit amet finibus velit ante nec lacus. Cras erat nunc, pulvinar nec leo at, rhoncus elementum orci. Nullam ut sapien ultricies, gravida ante ut, ultrices nunc.*@
+                                                    @*</div>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                        @*<!-- End Accordion -->*@
+                                @*</div>*@
+                            @*</div>*@
+                        @*</section>*@
+
+                        @*<div class="coupon-code">*@
+                            @*<div class="row">*@
+                                @*<div class="col-sm-4 sm-margin-bottom-30">*@
+                                    @*<h3>Discount Code</h3>*@
+                                    @*<p>Enter your coupon code</p>*@
+                                    @*<input class="form-control margin-bottom-10" name="code" type="text">*@
+                                    @*<button type="button" class="btn-u btn-u-sea-shop">Apply Coupon</button>*@
+                                @*</div>*@
+                                @*<div class="col-sm-3 col-sm-offset-5">*@
+                                    @*<ul class="list-inline total-result">*@
+                                        @*<li>*@
+                                            @*<h4>Subtotal:</h4>*@
+                                            @*<div class="total-result-in">*@
+                                                @*<span>$ 1280.00</span>*@
+                                            @*</div>*@
+                                        @*</li>*@
+                                        @*<li>*@
+                                            @*<h4>Shipping:</h4>*@
+                                            @*<div class="total-result-in">*@
+                                                @*<span class="text-right">- - - -</span>*@
+                                            @*</div>*@
+                                        @*</li>*@
+                                        @*<li class="divider"></li>*@
+                                        @*<li class="total-price">*@
+                                            @*<h4>Total:</h4>*@
+                                            @*<div class="total-result-in">*@
+                                                @*<span>$ 1280.00</span>*@
+                                            @*</div>*@
+                                        @*</li>*@
+                                    @*</ul>*@
+                                @*</div>*@
+                            @*</div>*@
+                        @*</div>*@
+                    </div>
+                </form>
+            </div><!--/end container-->
+        </div>
+            <!--=== End Content Medium Part ===-->
+
+
+
+
+
+    </div>
+
+
+    <script>
+    jQuery(document).ready(function() {
+    App.init();
+    Login.initLogin();
+    StepWizard.initStepWizard();
+    StyleSwitcher.initStyleSwitcher();
+    });
+    </script>
+}

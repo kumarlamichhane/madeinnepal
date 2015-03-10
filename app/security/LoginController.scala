@@ -18,8 +18,13 @@ import scala.concurrent.duration._
  */
 object LoginController extends Controller {
 
+  //todo create UserWrapped request
+  //case class AuthenticatedRequest (val userId: String, request: Request[AnyContent]) extends WrappedRequest(request)
+  
   object ActionSuperAdmin extends ActionBuilder[Request] {
+    
     def invokeBlock[A](request: Request[A], block: Request[A] => Future[SimpleResult]) = {
+      
       val userIdInSession = request.session.get("userId").get.toString
       val futureUser: Future[Option[JsObject]] = userService.findById(userIdInSession)
       val userGroup = futureUser.map{
@@ -37,10 +42,28 @@ object LoginController extends Controller {
 
       group match {
         case "SuperAdmin" => block(request)
-        case _ => ???
+        case _ => Future(Ok(Json.toJson("unauthorized")))
       }
 
     }
+  }
+
+  def admin = Action{
+    Ok(views.html.admin(" "))
+  }
+
+  def adminHome = Action{
+      Ok(views.html.adminhome(" "))
+  }
+
+  def getUserInSession = Action.async{
+    request=>
+      val userId = request.session.get("userId").get.toString
+      val futureUser = UserService.findById(userId)
+      val user = Await.result(futureUser,10 seconds)
+      Logger.info(s"user in session: $user")
+      val userJsObj = user.get
+    Future(Ok(Json.toJson(userJsObj)))
   }
 
   def login: EssentialAction = Action.async(parse.json){
@@ -55,9 +78,9 @@ object LoginController extends Controller {
       userFromDB map {
         case None => NotFound
         case Some(t) => {
-          Logger.info(s" login user $t")
-          val user = t.as[User]
 
+          val user = t.as[User]
+          Logger.info(s"username form db $user")
           val id = user._id.get.toString
           val pass = user.password
           val status = user.status
@@ -65,31 +88,41 @@ object LoginController extends Controller {
           if(pass==passwordFromRequest) {
             Logger.info("password matched")
 
-            if(status==true){
-              Ok(Json.toJson("Success")).withSession("userId"-> id)
+            if(status.equals(true)){
+              Logger.info(s"status: $status " )
+              Ok(Json.toJson("success")).withSession("userId"-> id)
+
             }else{
-              Logger.info("--- redirecting 2  /changepassword")
-              Redirect(routes.LoginController.adminPasswordChange(id))
+              Logger.info(s"status: $status " )
+              Ok(Json.toJson("change")).withSession("userId"-> id)
 
             }
           //  val session = createCall4BloodSession(t, authToken)
           //  sessionDao.create(session.doc)
 
           }
-          else
-            NotFound(Json.toJson(" wrong "))
+          else {
+            Logger.info(s"password incorrect")
+            BadRequest(Json.toJson(" Incorrect Password "))
+          }
         }
       }
     }
   }
 
   def logout: EssentialAction = Action.async{
-    Future(Ok("logged out ").withNewSession)
+    Future(Ok(Json.toJson("logged out")).withNewSession)
   }
 
-  def adminPasswordChange(id: String) = Action{
 
-    Ok(views.html.passwordchange(id))
+  def adminPasswordChange = Action{
+    request=>
+      val userId = request.session.get("userId").get.toString
+      val futureUser = UserService.findById(userId)
+      val user = Await.result(futureUser,10 seconds)
+      val userName = user.get.as[User].username
+
+    Ok(views.html.passwordchange(userName))
   }
 
   private def createCall4BloodSession(user: JsObject, authToken: String): Call4BloodSession = {

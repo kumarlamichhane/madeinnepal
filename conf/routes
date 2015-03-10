@@ -1,51 +1,91 @@
 # Routes
 
-# Home page
-GET         /                                       controllers.Application.home
-GET         /admin                                  controllers.Application.admin
-GET         /signup                                 controllers.Application.signUp
-GET         /admin/home                             controllers.Application.adminHome
+#Actor
+POST          /act/products                           actors.ProductActController.saveProduct
 
+#Tests
+GET           /session/:test                          controllers.CustomerApi.sessionTest(test)
 
+# pages
+GET           /                                       controllers.Application.home
+GET           /page/signup                            controllers.Application.signUp
+GET           /page/superhome                         controllers.Application.superAdminHome
+GET           /page/checkout                          controllers.Application.checkoutPage
+GET           /page/products                          controllers.Application.productPage
+GET           /page/orders                            controllers.Application.orderPage
+GET           /page/shop                              controllers.Application.shop
+GET           /page/cart                              controllers.Application.cart
+GET           /page/bill/:id                          controllers.Application.bill(id)
+
+#Products
+POST          /products                               controllers.ProductApi.createProduct
+GET           /products                               controllers.ProductApi.findAllProducts
+GET           /products/:id                           controllers.ProductApi.findProductByID(id)
+PUT           /products/:id                           controllers.ProductApi.updateProduct(id)
+DELETE        /products/:id                           controllers.ProductApi.deleteProduct(id)
+GET           /products/categories/:category          controllers.ProductApi.findProductByCategory(category)
+
+#Customer
+GET           /customers/:id                          controllers.CustomerApi.getCustomerById(id)
+POST          /checkout                               controllers.CustomerApi.checkOut
+POST          /addtocart                              controllers.CartApi.addToCart
+GET           /cart/:id                               controllers.CartApi.getCart(id)
+GET           /clearCart/:id                          controllers.CartApi.clearCart(id)
+GET           /clear                                  controllers.CartApi.clearSession
+
+GET           /carts/:id                              controllers.CartApi.getCartById(id)
+GET           /cart/:id/:productId                    controllers.CartApi.removeItem(id: String,productId: String)
+#Orders
+GET           /orders                                 controllers.OrderApi.findAllOrders
+GET           /orders/:id                             controllers.OrderApi.getOrderById(id)
 #Contacts
 
-POST        /contacts                               controllers.ContactApi.createContact
-GET         /contacts                               controllers.ContactApi.findAllContacts
-
-GET         /contacts/address/:address              controllers.ContactApi.findContactsByAddress(address)
-
-GET         /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findContactsByBloodGroup(bloodGroup)
-GET         /contacts/phone/:phoneNumber            controllers.ContactApi.findContactByPhoneNumber(phoneNumber)
-GET         /contacts/:id                           controllers.ContactApi.findContactById(id)
-PUT         /contacts/:id                           controllers.ContactApi.updateContact(id)
-PUT         /contacts/:id/field                     controllers.ContactApi.updateContactField(id)
+POST          /contacts                               controllers.ContactApi.createContact
+GET           /contacts                               controllers.ContactApi.findAllContacts
+GET           /contacts/address/:address              controllers.ContactApi.findContactsByAddress(address)
+GET           /contacts/bloodgroup/:bloodGroup        controllers.ContactApi.findContactsByBloodGroup(bloodGroup)
+GET           /contacts/phone/:phoneNumber            controllers.ContactApi.findContactByPhoneNumber(phoneNumber)
+GET           /contacts/:id                           controllers.ContactApi.findContactById(id)
+PUT           /contacts/:id                           controllers.ContactApi.updateContact(id)
+PUT           /contacts/:id/field                     controllers.ContactApi.updateContactField(id)
 
 #Hosts
-POST        /hosts                                  controllers.HostApi.createHost
-GET         /hosts                                  controllers.HostApi.findAllHosts
-GET         /hosts/address/:address                 controllers.HostApi.findHostsByAddress(address)
-GET         /hosts/bloodgroup/:bloodGroup           controllers.HostApi.findHostsByBloodGroup(bloodGroup)
-GET         /hosts/:id                              controllers.HostApi.findHostById(id)
+POST          /hosts                                  controllers.HostApi.createHost
+GET           /hosts                                  controllers.HostApi.findAllHosts
+GET           /hosts/address/:address                 controllers.HostApi.findHostsByAddress(address)
+GET           /hosts/bloodgroup/:bloodGroup           controllers.HostApi.findHostsByBloodGroup(bloodGroup)
+GET           /hosts/:id                              controllers.HostApi.findHostById(id)
 
 #Utils
-POST        /upload/:reference/:contactId           controllers.Application.uploadFile(contactId: String,reference: String)
-GET         /downloadfile/:fileId                   controllers.Application.downloadFile(fileId)
-POST        /save/:id                               controllers.Application.saveAttachment(id)
-GET         /downloadattachment/:id                 controllers.Application.downloadAttachment(id)
+POST          /upload/:reference/:contactId           controllers.Application.uploadFile(contactId: String,reference: String)
+GET           /downloadfile/:fileId                   controllers.Application.downloadFile(fileId)
+POST          /save/:id                               controllers.Application.saveAttachment(id)
+GET           /downloadattachment/:id                 controllers.Application.downloadAttachment(id)
 
-GET         /sendmail/:to/:text                     controllers.Application.sendmailtest(to: String, text: String)
+GET           /sendmail/:to/:text                     controllers.Application.sendmailtest(to: String, text: String)
 
 #Security
-POST        /login                                  security.LoginController.login
-GET         /logout                                 security.LoginController.logout
-GET         /changepassword/:id                     security.LoginController.adminPasswordChange(id)
+POST          /login                                  security.LoginController.login
+GET           /logout                                 security.LoginController.logout
+GET           /admin/changepassword                   security.LoginController.adminPasswordChange
+GET           /admin                                  security.LoginController.admin
+GET           /admin/home                             security.LoginController.adminHome
+
 
 #User
-POST        /users                                  security.UserApi.createUser
-GET         /users                                  security.UserApi.findAllUsers
-GET         /users/:id                              security.UserApi.findUserById(id)
-GET         /users/name/:name                       security.UserApi.findUserByUsername(name)
-POST        /users/password/:id                     security.UserApi.changePassword(id)
+GET           /users/me                               security.LoginController.getUserInSession
+POST          /users                                  security.UserApi.createUser
+GET           /users                                  security.UserApi.findAllUsers
+GET           /users/:id                              security.UserApi.findUserById(id)
+GET           /users/name/:name                       security.UserApi.findUserByUsername(name)
+PUT           /users/password                         security.UserApi.changePassword
+GET           /users/count/user                       security.UserApi.userCount
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                           controllers.Assets.at(path="/public", file)
+GET           /assets/*file                           controllers.Assets.at(path="/public", file)
+GET           /location                               controllers.Application.location
+GET           /savelocation                           controllers.Application.saveLocation
+
+
+

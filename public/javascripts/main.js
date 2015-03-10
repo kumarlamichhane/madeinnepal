@@ -28,7 +28,7 @@ function createContact() {
         url: "http://localhost:9000/contacts",
         dataType: "json",
         contentType:"application/json",
-        data: formToJSON(),        
+        data: contactJSON(),        
         success:function(msg){
         	alert(msg);
         },
@@ -45,7 +45,7 @@ function updateContact() {
         url: "http://localhost:9000/contacts",
         dataType: "json",
         contentType:"application/json",
-        data: formToJSON(),
+        data: contactJSON(),
         success:function(msg){
         	alert (msg);
         },
@@ -62,7 +62,7 @@ function deleteContact() {
         url: "http://localhost:9000/contacts",
         dataType: "json",
         contentType:"application/json",      
-        data:formToJSON(),
+        data:contactJSON(),
         success:function(msg){
         	alert(msg);
         },
@@ -89,7 +89,7 @@ function renderList(contacts) {
     //console.log(contacts);
     $.each(contacts, function(idx, contact) {
         //console.log(idx + " " + obj.description);
-        $('#contacts').append('<li>' + contact.name + '\t' +contact.bloodGroup +'\t'+contact.phoneNumber +'\t'+contact.address + '</li>');
+        $('#contacts').append('<li>'+ contact.name + '\t' +contact.bloodGroup +'\t'+contact.phoneNumber +'\t'+contact.address + '</li>');
     });
 }
 
@@ -98,7 +98,7 @@ function renderContact(contact){
 	$('#contacts').append('<li>' + contact.name + '\t' +contact.bloodGroup +'\t'+contact.phoneNumber +'\t'+contact.address + '</li>');
 }
 
-function formToJSON() {
+function contactJSON() {
 
 	var bloodGroup = document.getElementById("contactBloodGroup");
 	var selected = bloodGroup.options[bloodGroup.selectedIndex].value;
@@ -114,11 +114,4 @@ function formToJSON() {
 
     });
       
-}
-
-function test(){
-
-    if(checkBox.checked == true)
-    { alert("true")}
-
 }

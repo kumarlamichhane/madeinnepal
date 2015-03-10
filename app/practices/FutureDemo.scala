@@ -10,14 +10,15 @@ object FutureDemo extends App {
 
 
   val f1 = Future{ "Hello" + "World" }
+  
   val xLength = f1.map{
     x => x.length
   }
 val k = xLength.flatMap(x=>Future(x))
-
-
-
-//  val f2 = f1 flatMap { x => Future(x.length) }
+  
+  
+  val f2 = f1 flatMap { x => Future(x.length) }
+  
 //  val f3 = f1 map {x => Future(x.length)}
 //  f2.map(k => println("f2 : " +k))
 //  f3.map(m => m map(l=>println(l)))

@@ -1,6 +1,6 @@
 package factories
 
-import domains.UploadFile
+import domains._
 import models.{Host, Contact}
 import security.User
 import services.BaseService
@@ -10,6 +10,14 @@ import DaoFactory._
  */
 object ServiceFactory {
 
+
+  val productService = new BaseService[Product](productDao)
+  val cartService = new BaseService[Cart](cartDao)
+  val customerService = new BaseService[Customer](customerDao)
+  val customerOrderService = new BaseService[CustomerOrder](customerOrderDao)
+  
+  
+  
   val contactService = new BaseService[Contact](contactDao)
   //val mailOptionService = new BaseService[MailOption](mailOptionDao)
   val hostService = new BaseService[Host](hostDao)

@@ -1,7 +1,7 @@
 package controllers
 
 import play.api._
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.{Writes, JsObject, Json}
 import play.api.mvc._
 import security.LoginController.ActionSuperAdmin
 import services.BaseService
@@ -14,21 +14,21 @@ import scala.concurrent.Future
  */
 trait BaseApi extends Controller{
 
+  val idWriter= Writes[String]{id => Json.obj("_id"->id)}
+  
   //post, get, put, delete
   def post[T](service: BaseService[T]): EssentialAction= Action.async(parse.json){
     request=>{
-
+      val userId = request.session.get("userId").get
       Json.fromJson(request.body)(service.reader).map{
      // request.body.validate[T].map{
-          t=> service.insert(t).map{
-              lastError =>
-              Logger.debug(s"Successfully inserted with LastError: $lastError")
-              Created(Json.toJson("created"))
+          t=> service.insert(t)(userId).map{ res => Created(Json.toJson(res._1)(idWriter))
         }
       }
     }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
 
+  //todo find by a field
   def getAll[T](service: BaseService[T]): EssentialAction = Action.async{
 
     val query = Json.obj()
@@ -39,6 +39,16 @@ trait BaseApi extends Controller{
     }
   }
 
+  def getCount[T](service: BaseService[T]): EssentialAction = Action.async{
+
+    val query = Json.obj()
+    val list = service.findAll(query)
+    list.map{
+      case Nil=>NotFound(Json.toJson(0))
+      case l:Seq[JsObject] => val count = l.size; Ok(Json.toJson(count))
+    }
+  }
+  
   def getById[T](id: String)(service: BaseService[T]): EssentialAction = Action.async{
 
     val doc = service.findById(id)
@@ -54,7 +64,7 @@ trait BaseApi extends Controller{
       Json.fromJson(request.body)(service.reader).map{
      // request.body.validate[T].map {
         //t => service.update(id, t).map(_=>Ok(Json.toJson(t)(service.writer)))
-        t => service.update(id, t).map(_=> Ok(Json.toJson("updated ")))
+        t => service.update(id, t).map(id => Ok(Json.toJson(id)(idWriter)))
 
       }
     }.getOrElse(Future.successful(BadRequest("invalid json")))                 //??
@@ -68,5 +78,12 @@ trait BaseApi extends Controller{
     }
   }
 
+  
+  def delete[T](id: String)(service: BaseService[T]): EssentialAction = Action.async{
+    request =>
+
+      service.remove(id).map(id => Ok(Json.toJson(id)))
+
+  }
 
 }

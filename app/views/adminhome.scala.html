@@ -1,8 +1,15 @@
 @(message: String)
 
+
 @main("Admin Home"){
 
-    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" >
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" onload="getUserInSession()">
+
+        
+        <script>
+            getUserCount()
+            
+        </script>
         <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -10,7 +17,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     <a class="navbar-brand page-scroll" href="#page-top">
-                        <i class="fa fa-play-circle"></i>  <span class="light">Call 4</span> Blood admin
+                        <i class="fa fa-play-circle"></i>  <span class="light">Nepali</span> Kapas admin
                     </a>
                 </div>
 
@@ -18,38 +25,88 @@
                 <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                     <ul class="nav navbar-nav">
 
+
+                                <!-- Notifications: style can be found in dropdown.less -->
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-warning"></i>
+                                <span class="label label-warning"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 1 notifications</li>
+                                <li>
+                                        <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+
+                                        <li>
+                                            <a href="#">
+                                                <i class="ion ion-ios7-person danger"></i> You changed your username
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="#">View all</a></li>
+                            </ul>
+                        </li>
+
                         <li>
-                            <a class="page-scroll" href="#about">@message.capitalize</a>
+                            <a class="page-scroll" id="user-name-label" href=""></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="/logout">Log Out</a>
+                            <a class="page-scroll" onclick="logout()">Log Out</a>
                         </li>
+                        
                     </ul>
                 </div>
                     <!-- /.navbar-collapse -->
             </div>
                 <!-- /.container -->
         </nav>
+        <div id = "userdiv">
+        <section id="userform" class="container content-section text-center">
 
-        <section id="signup" class="container content-section text-center">
+                <div style="float: left" class="span3 bs-docs-sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav">
+                        <li><a href="#profile"><i class="icon-chevron-right"></i>Profile</a></li>
+                        <li><a href="#typography"><i class="icon-chevron-right"></i> Create User</a></li>
+                        <li><a href="#code" ><i class="icon-chevron-right"></i> View All User<small class="badge pull-right bg-red" id="count_user"></small></a></li>
+                        <li><a href="#forms"><i class="icon-chevron-right"></i> super admin feature 3</a></li>
+
+                    </ul>
+
+                </div>
+                        <div style="float: left" class="bs-docs-example">
+                            <p class="intro-text" style="color: #357ebd">Create User</p>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">
+                                    <input type="text" class="form-control" id="userName" placeholder="Name"></br>
+                                    <input type="text" class="form-control" id="userPhoneNumber" placeholder="Phone"></br>
+                                    <input type="text" class="form-control" id="userEmailAddress" placeholder="Email"></br>
+                                    <input type="text" class="form-control" id="userAddress" placeholder="Address"></br>
+                                    <input type="text" class="form-control" id="userGroup" placeholder="User Role"></br>
+                                    <input type="submit" class="form-control btn btn-default btn-lg"  style="color: green" value="Create User" onclick="createUser()"></br>
+                                </span>
+                            </div>
+
+                        
+
+
+                </div>
+
+        </section>
+        </div>
+        <section id="userform" class="container content-section text-center">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
 
-                    <p class="intro-text" style="color: #357ebd">Create User</p>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon">
-                            <input type="text" class="form-control" id="userName" placeholder="Name"></br>
-                            <input type="text" class="form-control" id="userPhoneNumber" placeholder="Phone"></br>
-                            <input type="text" class="form-control" id="userEmailAddress" placeholder="Email"></br>
-                            <input type="text" class="form-control" id="userAddress" placeholder="Address"></br>
-                            <input type="text" class="form-control" id="userGroup" placeholder="Group"></br>
-                            <input type="submit" class="form-control btn btn-default btn-lg"  style="color: green" value="Create User" onclick="createUser()"></br>
-                        </span>
-                    </div>
+                    <p class="intro-text" style="color: #357ebd">Contacts</p>
+                    <div id = "contacts">
 
+                    </div>
                 </div>
             </div>
         </section>
+
 
     </body>
 

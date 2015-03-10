@@ -1,0 +1,12 @@
+app.name="nepalikapas"
+app.version="1.0.1"
+application.secret = 12345123
+mongodb.uri ="mongodb://localhost:27017/nepalikapas"
+
+application.langs="en,fr"
+
+smtp.host=smtp.gmail.com
+smtp.port=587
+smtp.ssl=true
+smtp.user="kumarlamichhane13@gmail.com"
+smtp.password=""

@@ -1,5 +1,6 @@
 package domains
 
+import org.joda.time.DateTime
 import play.api.libs.json.Json
 import security.{Group, User}
 
@@ -10,7 +11,7 @@ trait MetaInfoAware{
     def meta: Option[MetaInfo]
 }
 
-case class MetaInfo(owner: Option[String], permission: Option[Group.Group])
+case class MetaInfo(createdBy: Option[String] = None, createdDate: Option[DateTime])
 
 object MetaInfo{
   implicit val format = Json.format[MetaInfo]

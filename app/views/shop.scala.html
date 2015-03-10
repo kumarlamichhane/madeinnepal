@@ -1,0 +1,278 @@
+@(cartId: String)
+
+
+@mainshop("Shop"){
+
+
+    <label type="hidden" style = "{display: none}" id ="cart_id">@cartId</label>
+
+    <script>
+    getAllProducts()
+        
+    var id = $('#cart_id' ).text().toString()
+    console.log(id)
+    if(id!="None") {
+        getCartItems2(id)
+    }
+    </script>
+
+    <div class="wrapper">
+            <!--=== Header v5 ===-->
+        <div class="header-v5 header-static">
+                <!-- Topbar v3 -->
+            <div class="topbar-v3">
+                <div class="search-open">
+                    <div class="container">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="search-close"><i class="icon-close"></i></div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                                <!-- Topbar Navigation -->
+                            <ul class="left-topbar">
+
+                            </ul><!--/end left-topbar-->
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="list-inline right-topbar pull-right">
+                                <li><a href="#">Account</a></li>
+                                <li><a href="shop-ui-add-to-cart.html">Wishlist (0)</a></li>
+                                <li><a href="shop-ui-login.html">Login</a> | <a href="shop-ui-register.html">Register</a></li>
+                                <li><i class="search fa fa-search search-button"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!--/container-->
+            </div>
+                <!-- End Topbar v3 -->
+
+                <!-- Navbar -->
+            <div class="navbar navbar-default mega-menu" role="navigation">
+                <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/page/shop">
+                            <img id="logo-header"  src="@routes.Assets.at("/shop/img/logo.png")" alt="Logo">
+                        </a>
+                    </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-responsive-collapse">
+                            <!-- Badge -->
+                        <ul class="list-inline shop-badge badge-lists badge-icons pull-right">
+                            <li>
+                                <a href="/page/checkout"><img src ="@routes.Assets.at("/shop/img/cart.png")"/></a>
+                                <span id="no-of-items" class="badge badge-sea rounded-x">0</span>
+                                <ul class="list-unstyled badge-open contentHolder">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Price</th>
+                                                    <th>Qty</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="cart_items">
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ul>
+                            </li>
+
+
+                            
+                            <li class="subtotal">
+                                <div class="overflow-h margin-bottom-10">
+                                    <span id="">Subtotal</span>
+                                    <span id="total-amount" class="pull-right subtotal-cost">Rs.00.00</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6" id="cart_top">
+                                        <div class="clear_cart">
+                                            <a class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">Clear Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="/page/checkout" class="btn-u btn-brd btn-brd-hover btn-u-sea-shop btn-block">Checkout</a>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                            <!-- End Badge -->
+
+                        <ul class="nav navbar-nav">
+                                <!-- Pages -->
+                            <li class="dropdown active">
+
+                                <a id="jacket" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" onclick="getProductsByCategory('Jacket')">
+                                    Jackets
+                                </a>
+                                @*<ul class="dropdown-menu">*@
+                                    @*<li><a onclick="alert('Man')">Man</a></li>*@
+                                    @*<li><a onclick="alert('Ladies')">Ladies</a></li>*@
+                                @*</ul>*@
+                            </li>
+                                <!-- End Pages -->
+
+                                <!-- Promotion -->
+                            <li class="dropdown">
+                                <a id="shoe" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" onclick="getProductsByCategory('Shoe')">
+                                    Shoes
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @*<li class="dropdown-submenu">*@
+                                        @*<a href="javascript:void(0);">Jeans</a>*@
+                                        @*<ul class="dropdown-menu">*@
+                                            @*<li><a href="#">Skinny Jeans</a></li>*@
+                                        @*</ul>*@
+                                    @*</li>*@
+                                    @*<li class="dropdown-submenu">*@
+                                        @*<a href="javascript:void(0);">Shoes</a>*@
+                                        @*<ul class="dropdown-menu">*@
+                                            @*<li><a href="#">Sandals</a></li>*@
+
+                                        @*</ul>*@
+                                    @*</li>*@
+                                </ul>
+                            </li>
+                                <!-- End Promotion -->
+                            <li class="dropdown active">
+
+                                <a id="jacket" class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown" onclick="getProductsByCategory('Glass')">
+                                    Glasses
+                                </a>
+                                @*<ul class="dropdown-menu">*@
+                                    @*<li><a onclick="alert('Man')">Man</a></li>*@
+                                    @*<li><a onclick="alert('Ladies')">Ladies</a></li>*@
+                                @*</ul>*@
+                            </li>
+
+                        </ul>
+                    </div><!--/navbar-collapse-->
+                </div>
+            </div>
+                <!-- End Navbar -->
+        </div>
+            <!--=== End Header v5 ===-->
+
+            <!--=== Slider ===-->
+        <div class="tp-banner-container">
+            @*<div class="tp-banner">*@
+                @*<ul>*@
+                        @*<!-- SLIDE -->*@
+                    @*<li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 1">*@
+                            @*<!-- MAIN IMAGE -->*@
+                        @*<img src="@routes.Assets.at("shop/img/1.jpg")"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">*@
+
+                        @*<div class="tp-caption revolution-ch1 sft start"*@
+                        @*data-x="center"*@
+                        @*data-hoffset="0"*@
+                        @*data-y="100"*@
+                        @*data-speed="1500"*@
+                        @*data-start="500"*@
+                        @*data-easing="Back.easeInOut"*@
+                        @*data-endeasing="Power1.easeIn"*@
+                        @*data-endspeed="300">*@
+                            @*The New <br>*@
+                            @*<strong>Collection</strong><br>*@
+                            @*is here*@
+                        @*</div>*@
+
+                            @*<!-- LAYER -->*@
+                        @*<div class="tp-caption sft"*@
+                        @*data-x="center"*@
+                        @*data-hoffset="0"*@
+                        @*data-y="380"*@
+                        @*data-speed="1600"*@
+                        @*data-start="1800"*@
+                        @*data-easing="Power4.easeOut"*@
+                        @*data-endspeed="300"*@
+                        @*data-endeasing="Power1.easeIn"*@
+                        @*data-captionhidden="off"*@
+                        @*style="z-index: 6">*@
+                            @*<a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>*@
+                        @*</div>*@
+                    @*</li>*@
+                        @*<!-- END SLIDE -->*@
+
+                        @*<!-- SLIDE -->*@
+                    @*<li class="revolution-mch-1" data-transition="fade" data-slotamount="5" data-masterspeed="1000" data-title="Slide 1">*@
+                            @*<!-- MAIN IMAGE -->*@
+                        @*<img src="@routes.Assets.at("shop/img/2.jpg")"  alt="darkblurbg"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">*@
+
+                        @*<div class="tp-caption revolution-ch1 sft start"*@
+                        @*data-x="center"*@
+                        @*data-hoffset="0"*@
+                        @*data-y="100"*@
+                        @*data-speed="1500"*@
+                        @*data-start="500"*@
+                        @*data-easing="Back.easeInOut"*@
+                        @*data-endeasing="Power1.easeIn"*@
+                        @*data-endspeed="300">*@
+                            @*The New <br>*@
+                            @*<strong>Collection</strong><br>*@
+                            @*is here*@
+                        @*</div>*@
+
+                            @*<!-- LAYER -->*@
+                        @*<div class="tp-caption sft"*@
+                        @*data-x="center"*@
+                        @*data-hoffset="0"*@
+                        @*data-y="380"*@
+                        @*data-speed="1600"*@
+                        @*data-start="1800"*@
+                        @*data-easing="Power4.easeOut"*@
+                        @*data-endspeed="300"*@
+                        @*data-endeasing="Power1.easeIn"*@
+                        @*data-captionhidden="off"*@
+                        @*style="z-index: 6">*@
+                            @*<a href="#" class="btn-u btn-brd btn-brd-hover btn-u-light">Shop Now</a>*@
+                        @*</div>*@
+                    @*</li>*@
+                        @*<!-- END SLIDE -->*@
+                    @**@
+                @*</ul>*@
+                @*<div class="tp-bannertimer tp-bottom"></div>*@
+            @*</div>*@
+        </div>
+            <!--=== End Slider ===-->
+
+        <div class="container content-md">
+            <div id="featured_products">
+                <div class="row">
+                    <div id="products">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+
+
+    <script>
+    jQuery(document).ready(function() {
+    App.init();
+    App.initParallaxBg();
+    OwlCarousel.initOwlCarousel();
+    RevolutionSlider.initRSfullWidth();
+    StyleSwitcher.initStyleSwitcher();
+    });
+    </script>
+}

@@ -1,7 +1,7 @@
 package factories
 
 import daos.BaseDao
-import domains.{UploadFile}
+import domains._
 import models.{Host, Contact}
 import play.modules.reactivemongo.ReactiveMongoPlugin
 import reactivemongo.api.gridfs.GridFS
@@ -12,6 +12,13 @@ import security.User
  * Created by xplorer on 9/18/14.
  */
 object DaoFactory {
+
+
+  val productDao = new BaseDao[Product]("products")
+  val cartDao = new BaseDao[Cart]("carts")
+  val customerDao = new BaseDao[Customer]("customers")
+  val customerOrderDao = new BaseDao[CustomerOrder]("customer.orders")
+  
 
   val contactDao = new BaseDao[Contact]("contacts")
   //val mailOptionDao = new BaseDao[MailOption]("mailoptions")

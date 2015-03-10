@@ -8,7 +8,6 @@ import practices.Contact._
 object Practice{
 
   def toInt(s: String): Option[Int]={
-
     try{
       Some(s.toInt)
     }catch{
@@ -41,8 +40,25 @@ object call4blood extends App{
 
 
  val fContact= futureContact.map{
-   contacts => println
+   contacts => contacts
  }
+
+
+  val flat = futureContact.flatMap(contacts=>Future(contacts.get))
+
+
+
+  val list = List(1,2,3,4,5)
+
+  val doubleList = list.map {
+    l => println(l * 2)
+  }
+
+  val fx =  (x: Int) => if(x>2) x else 0
+
+  val listfx = list.map(s=> fx(s))
+
+
 
 
 }

@@ -23,10 +23,10 @@ object HostApi extends BaseApi{
 
   def createHost: EssentialAction= Action.async(parse.json){
     request=>{
-
+      val userId = ""
       Json.fromJson(request.body)(hostReader).map{
         // request.body.validate[T].map{
-        t => hostService.insert(t).map{
+        t => hostService.insert(t)(userId).map{
           val requiredBloodGroup = t.bloodGroup
           val hostLocation = t.location
           Logger.info(s"Requested bloodGroup: $requiredBloodGroup")

@@ -1,0 +1,151 @@
+{
+    "name" : "Woolen Jacket",
+    "category" : "Jacket",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "woolen jacket",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54c4b1e84a0000c000e12663"),
+    "name" : "Glass 1",
+    "category" : "Glass",
+    "count" : 6,
+    "costPrice" : 3500,
+    "sellingPrice" : 5000,
+    "description" : "sun glass",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54ec51ba6658bd3418b4494c"),
+    "name" : "Glass Google",
+    "category" : "Glass",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54ec51d86658bd3418b4494d"),
+    "name" : "Glass 2",
+    "category" : "Glass",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "hammer",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54b52c4a6c0000a4003f849f"),
+    "name" : "LeatherJacket",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "leatherjacket",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : "",
+    "category" : "Jacket"
+}
+{
+    "_id" : ObjectId("54f71bcb7616c3855ddd1a48"),
+    "name" : "Woolen Jacket",
+    "category" : "Jacket",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "woolen jacket",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f71bf07616c3855ddd1a49"),
+    "name" : "Shoe 1",
+    "category" : "Shoe",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "water proof"
+}
+{
+    "_id" : ObjectId("54f71c087616c3855ddd1a4a"),
+    "name" : "Shoe 2",
+    "category" : "Shoe",
+    "count" : 6,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "water proof",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f71c117616c3855ddd1a4b"),
+    "name" : "Shoe 3",
+    "category" : "Shoe",
+    "count" : 7,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "water proof",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f71c167616c3855ddd1a4c"),
+    "name" : "Shoe 4",
+    "category" : "Shoe",
+    "count" : 7,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "water proof",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f71c197616c3855ddd1a4d"),
+    "name" : "Shoe 5",
+    "category" : "Shoe",
+    "count" : 7,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "water proof",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f71c1b7616c3855ddd1a4e"),
+    "name" : "Shoe 6",
+    "category" : "Shoe",
+    "count" : 7,
+    "costPrice" : 1500,
+    "sellingPrice" : 2500,
+    "description" : "water proof",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f7220b1fe098420a18b219"),
+    "name" : "Jacket 1",
+    "category" : "Jacket",
+    "count" : 8,
+    "costPrice" : 2500,
+    "sellingPrice" : 3000,
+    "description" : "summerjacket",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}
+{
+    "_id" : ObjectId("54f722491fe098420a18b21a"),
+    "name" : "Jacket 2",
+    "category" : "Jacket",
+    "count" : 8,
+    "costPrice" : 2500,
+    "sellingPrice" : 3000,
+    "description" : "summerjacket",
+    "createdBy" : "54a82d990295180386a64d53",
+    "createdDate" : ""
+}

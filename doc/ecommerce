@@ -1,0 +1,60 @@
+
+========================================================
+
+"products"=>
+	{
+    	   "name":"Shoe 3",
+    	   "category":"Shoe",
+    	   "count":6,
+    	   "costPrice":1500,
+    	   "sellingPrice":2500,
+    	   "description":"leather Shoe"
+
+    }
+
+orderedProduct: {"product":"product1","count":"2"}
+
+"cart":{
+	"id":"cart1",
+	"orderedProducts":[{"productID":"54b52c4a6c0000a4003f849f","count":"1"}],
+	"totalAmount":2500,
+	"noOfItem":1
+	}
+
+"location":{"longitude":"","latitude":""}
+
+"address":{"location":{"longitude":"123.12","latitude":"21.12"},"city":"Kathmandu","street":"Mulpani-4","houseNumber":"13" }
+
+"customer":{"id":"customer1","name":"Kumar Lamichhane","phone":"9841389377","email":"kumarlamichhane13@gmail.com","address":"Kathmandu"}
+
+"customerOrder":{"id":"order1","customerID":"12345","cartID":"cart1","dateCreated":""}
+
+======================================================================
+/checkout request.body
+{
+    {
+        "name": "Kumar Lamichhane",
+        "phone": "9841389377",
+        "email": "kumarlamichhane13@gmail.com",
+        "address": {
+            "location": {
+                "longitude": 123.12,
+                "latitude": 21.12
+            },
+            "city": "Kathmandu",
+            "street": "Mulpani-4",
+            "houseNumber": "13"
+        }
+    }
+
+}
+
+"cart": {
+        "orderedProducts": [
+            {
+                "productID": "product1",
+                "count": 1
+            }
+        ],
+        "totalAmount": 2500
+    }

@@ -1,12 +1,18 @@
 package utils
 
+import play.api.Logger
 import play.api.libs.json._
+import reactivemongo.bson.BSONDateTime
+
+import scala.util.parsing.json.JSONObject
 
 /**
  * Created by xplorer on 11/27/14.
  */
 object CommonUtils {
 
+  val log = Logger(this.getClass)
+  
   object EnumUtils {
 
     def enumReads[E <: Enumeration](enum: E): Reads[E#Value] = new Reads[E#Value] {
@@ -29,6 +35,13 @@ object CommonUtils {
     def enumFormat[E <: Enumeration](enum: E): Format[E#Value] = {
       Format(enumReads(enum), enumWrites)
     }
+  }
+
+  object ServiceUtils{
+    //todo add created date
+   Logger.info("....writing meta info....")
+    def metaInfoWriter(userId: String): JsObject = Json.obj("createdBy"->userId,"createdDate"->"")
+
   }
 
 }

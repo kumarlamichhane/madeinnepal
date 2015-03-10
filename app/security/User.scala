@@ -1,6 +1,7 @@
 package security
 
 
+import reactivemongo.bson.BSONObjectID
 import utils.CommonUtils._
 import play.api.Logger
 import play.api.libs.json.{Writes, Reads, JsObject, Json}
@@ -17,7 +18,7 @@ object LoginEvent{
   implicit val format = Json.format[LoginEvent]
 }
 
-case class User( _id: Option[String],
+case class User( _id: Option[String]=Option(BSONObjectID.generate.stringify),
                  emailAddress: String,
                  username: String,
                  password: String,
