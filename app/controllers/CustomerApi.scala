@@ -1,6 +1,5 @@
 package controllers
 
-
 import controllers.Application._
 import factories.ServiceFactory._
 import play.api.Logger

@@ -7,7 +7,7 @@ function getAllOrders(){
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/orders",
+        url: "http://localhost:8888/orders",
         success: function(orders) {
             $.each(orders,function(idx,order) {
                 $('#orders').append(
@@ -34,7 +34,7 @@ $(document).ready(function() {
 function getOrderById(orderId){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/orders/"+orderId,
+        url: "http://localhost:8888/orders/"+orderId,
         success: function(order) {
                 getCustomerById(order.customerID)
                 renderCart(order.cartID.toString())
@@ -51,11 +51,11 @@ function getOrderById(orderId){
 function getCustomerById(customerId){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/customers/"+customerId,
+        url: "http://localhost:8888/customers/"+customerId,
         success: function(customer) {
-            $("#customer_id").text(" customer id:" +customer._id)
-            $("#customer_name").text(" customer name:" +customer.name)
-            $("#customer_phone").text("customer phone:" +customer.phone)
+            $("#customer_id").text(" customer id: " +customer._id)
+            $("#customer_name").text(" Customer Name: " +customer.name)
+            $("#customer_phone").text("Customer phone: " +customer.phone)
         },
         error:function(msg){
             alert("error getting customer")
@@ -69,7 +69,7 @@ function renderCart(cId){
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/carts/"+cId,
+        url: "http://localhost:8888/carts/"+cId,
         success: function(cart) {
             $('#cart_items').empty()
             var cartId = cart._id
@@ -80,6 +80,8 @@ function renderCart(cId){
             $('#total-amount').text("Rs "+totalAmount)
             $('#cart_id').text(cartId)
             $.each(items, function(idx,item){
+
+                $('#total_amount').val=totalAmount
 
                 $('#cart_items').append(
                     '<tr><td class="product-in-table">'+

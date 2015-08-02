@@ -2,7 +2,7 @@
 function webSocketTest(){
 	  $.ajax({      
 	        type: 'GET',
-	        url: "ws://localhost:9000/testwebsocket",
+	        url: "ws://localhost:8888/testwebsocket",
 	        dataType: "text",
 	        contentType:"text/html",        
 	        success:alert("hi")
@@ -14,7 +14,7 @@ function getContacts() {
  
     $.ajax({      
         type: 'GET',
-        url: "http://localhost:9000/contacts",
+        url: "http://localhost:8888/contacts",
         dataType: "json",
         contentType:"application/json",        
         success:renderList
@@ -25,7 +25,7 @@ function createContact() {
  
     $.ajax({      
         type: 'POST',
-        url: "http://localhost:9000/contacts",
+        url: "http://localhost:8888/contacts",
         dataType: "json",
         contentType:"application/json",
         data: contactJSON(),        
@@ -42,7 +42,7 @@ function updateContact() {
 	 
     $.ajax({      
         type: 'PUT',
-        url: "http://localhost:9000/contacts",
+        url: "http://localhost:8888/contacts",
         dataType: "json",
         contentType:"application/json",
         data: contactJSON(),
@@ -59,7 +59,7 @@ function deleteContact() {
 	
     $.ajax({      
         type: 'DELETE',
-        url: "http://localhost:9000/contacts",
+        url: "http://localhost:8888/contacts",
         dataType: "json",
         contentType:"application/json",      
         data:contactJSON(),
@@ -76,7 +76,7 @@ function findContactByPhone(){
 	
 	$.ajax({      
         type: 'GET',
-        url: "http://localhost:9000/contacts/phonenumber/"+$('#phonenumber').val(),
+        url: "http://localhost:8888/contacts/phonenumber/"+$('#phonenumber').val(),
         dataType: "json",
         contentType:"application/json",        
         success:renderContact

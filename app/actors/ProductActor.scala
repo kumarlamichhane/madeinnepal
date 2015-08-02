@@ -21,7 +21,7 @@ class ProductActor extends Actor with ActorLogging{
      Logger.info(s"saving product: $product")
       val res = productService.insert(product)(userId).map(r=>r._2)
       val result = Await.result(res, timeout.duration)
-     sender ! result
+      sender ! result
       
   }
 }

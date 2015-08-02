@@ -65,7 +65,7 @@
 function getProductsByCategory(category){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/products/categories/"+category,
+        url: "http://localhost:8888/products/categories/"+category,
         success: function(products) {
             $('#products').empty()
             $.each(products, function(idx,product){
@@ -76,7 +76,7 @@ function getProductsByCategory(category){
 
                 $('#products').append(
 
-                    '<div id= "product" class="col-xs-6 col-md-3"> <a href="#" class="thumbnail">'
+                    '<div id= "product" class="col-xs-6 col-md-3 thumbnail"> <a href="/page/product/'+pID+'" class="thumbnail">'
                     +  '<image src="/assets/images/'+pID+'.jpg"/></br>'
                     + '<label id = "name'+pID+'">'+name+'</label></br> '
                     +'<label id = "price'+pID+'">' + price + '</label></br>'
@@ -98,7 +98,7 @@ function getProductsByCategory(category){
 function getAllProducts(){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/products",
+        url: "http://localhost:8888/api/products",
         success: function(products) {
             $.each(products, function(idx,product){
                 var pID = (product._id)
@@ -108,15 +108,67 @@ function getAllProducts(){
 
                 $('#products').append(
                 
-                    '<div id= "product" class="col-xs-6 col-md-3"> <a href="#" class="thumbnail">'
-                    +  '<image src="/assets/images/'+pID+'.jpg"/></br>'
+                    '<div id= "product" class="col-xs-6 col-md-3 thumbnail"> <a href="/page/product/'+pID+'" class="thumbnail">'
+                    +  '<image src="/assets/images/'+pID+'.jpg" /></br>'
                     + '<label id = "name'+pID+'">'+name+'</label></br> '
-                    +'<label id = "price'+pID+'">' + price + '</label></br>'
+                    +'<label id = "price'+pID+'">' + price + '</label></a></br>'
+
                     +'<input type="text" class = "qty" id="count'+pID+'" value="1"></br>'
+
                     + '<input class="add2cart btn-primary" type="button" id = "'+pID+'" value="add 2 Cart"></br>'
-                    + '</a></div> ')
+                    + '</div> ')
 
             })
+        },
+        error:function(msg){
+            alert(msg)
+
+        }
+    });
+}
+
+
+function getProductById(id){
+    $.ajax({
+        type: 'GET',
+        url: "http://localhost:8888/api/products/"+id,
+        success: function(product) {
+
+            var pID = (product._id)
+                var qty = (product.count)
+                var name = (product.name)
+                var price = (product.sellingPrice)
+
+            // details of a product
+            // logics  for color, size etc should b added inside this block
+
+            $('#product_details').append(
+                '<image src="/assets/images/'+pID+'.jpg" /></br>'
+                + '<label id = "name'+pID+'">'+name+'</label></br> '
+                +'<label id = "price'+pID+'">' + price + '</label></a></br>'
+                +'<input type="text" class = "qty" id="count'+pID+'" value="1"></br>'
+                + '<input class="add2cart btn-primary" type="button" id = "'+pID+'" value="add 2 Cart"></br>'
+            )
+
+            //$.each(products, function(idx,product){
+            //    var pID = (product._id)
+            //    var qty = (product.count)
+            //    var name = (product.name)
+            //    var price = (product.sellingPrice)
+            //
+            //    $('#product_details').append(
+            //
+            //        '<div id= "product" class="col-xs-6 col-md-3 thumbnail"> <a href="/page/product/'+pID+'" class="thumbnail">'
+            //        +  '<image src="/assets/images/'+pID+'.jpg" /></br>'
+            //        + '<label id = "name'+pID+'">'+name+'</label></br> '
+            //        +'<label id = "price'+pID+'">' + price + '</label></a></br>'
+            //
+            //        +'<input type="text" class = "qty" id="count'+pID+'" value="1"></br>'
+            //
+            //        + '<input class="add2cart btn-primary" type="button" id = "'+pID+'" value="add 2 Cart"></br>'
+            //        + '</div> ')
+            //
+            //})
         },
         error:function(msg){
             alert(msg)

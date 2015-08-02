@@ -2,7 +2,7 @@ package factories
 
 import daos.BaseDao
 import domains._
-import models.{Host, Contact}
+import domains.{Host, Contact}
 import play.modules.reactivemongo.ReactiveMongoPlugin
 import reactivemongo.api.gridfs.GridFS
 import play.api.Play.current

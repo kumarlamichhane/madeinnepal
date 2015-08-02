@@ -2,6 +2,8 @@
 
 #Actor
 POST          /act/products                           actors.ProductActController.saveProduct
+GET           /websocket                              websockets.Notifier.socket
+#OPTIONS        /products             controllers.Application.preflight
 
 #Tests
 GET           /session/:test                          controllers.CustomerApi.sessionTest(test)
@@ -9,21 +11,25 @@ GET           /session/:test                          controllers.CustomerApi.se
 # pages
 GET           /                                       controllers.Application.home
 GET           /page/signup                            controllers.Application.signUp
-GET           /page/superhome                         controllers.Application.superAdminHome
 GET           /page/checkout                          controllers.Application.checkoutPage
 GET           /page/products                          controllers.Application.productPage
 GET           /page/orders                            controllers.Application.orderPage
 GET           /page/shop                              controllers.Application.shop
 GET           /page/cart                              controllers.Application.cart
 GET           /page/bill/:id                          controllers.Application.bill(id)
+GET           /page/product/:id                       controllers.Application.singlePage(id)
+
 
 #Products
-POST          /products                               controllers.ProductApi.createProduct
-GET           /products                               controllers.ProductApi.findAllProducts
-GET           /products/:id                           controllers.ProductApi.findProductByID(id)
+POST          /api/products                           controllers.ProductApi.createProduct
+GET           /api/products                           controllers.ProductApi.findAllProducts
+GET           /api/products/:id                       controllers.ProductApi.findProductByID(id)
 PUT           /products/:id                           controllers.ProductApi.updateProduct(id)
 DELETE        /products/:id                           controllers.ProductApi.deleteProduct(id)
 GET           /products/categories/:category          controllers.ProductApi.findProductByCategory(category)
+
+GET           /pro                                    controllers.ProductApi.findQuery
+
 
 #Customer
 GET           /customers/:id                          controllers.CustomerApi.getCustomerById(id)
@@ -67,9 +73,9 @@ GET           /sendmail/:to/:text                     controllers.Application.se
 #Security
 POST          /login                                  security.LoginController.login
 GET           /logout                                 security.LoginController.logout
-GET           /admin/changepassword                   security.LoginController.adminPasswordChange
-GET           /admin                                  security.LoginController.admin
-GET           /admin/home                             security.LoginController.adminHome
+GET           /admin/page/password                    security.LoginController.passwordPage
+GET           /admin/page/login                       security.LoginController.loginPage
+GET           /admin/page/home                        security.LoginController.adminHome
 
 
 #User
@@ -86,6 +92,5 @@ GET           /users/count/user                       security.UserApi.userCount
 GET           /assets/*file                           controllers.Assets.at(path="/public", file)
 GET           /location                               controllers.Application.location
 GET           /savelocation                           controllers.Application.saveLocation
-
 
 

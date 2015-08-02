@@ -1,6 +1,6 @@
 package services
 
-import models.Contact
+import domains.Contact
 import factories.DaoFactory._
 import play.api.libs.json.{Reads, Json, JsObject}
 import scala.concurrent.ExecutionContext.Implicits.global

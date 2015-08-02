@@ -1,5 +1,7 @@
   package controllers
 
+  import play.api.libs.iteratee.{Iteratee, Enumerator}
+
   import scala.concurrent.duration._
   import java.io.{File, FileInputStream}
 
@@ -22,6 +24,45 @@
   object Application extends Controller with MongoController{
 
 
+
+    def socket = WebSocket.using[String] { request =>
+
+      // Log events to the console
+      val in = Iteratee.foreach[String](println).map { _ =>
+        println("Disconnected")
+      }
+
+      // Send a single 'Hello!' message
+      val out = Enumerator("Hello!")
+
+      (in, out)
+    }
+
+
+    //    def preflight = Action {
+//      Ok("...").withHeaders(
+//        "Access-Control-Allow-Origin" -> "*",
+//        "Access-Control-Allow-Methods" -> "GET, OPTIONS, POST, DELETE, PUT",
+//        "Access-Control-Max-Age" -> "3600",
+//        "Access-Control-Allow-Headers" -> "Origin, Content-Type, Accept, Authorization",
+//        "Access-Control-Allow-Credentials" -> "true"
+//      )
+//    }
+
+
+
+    def singlePage(id: String) = Action{
+      request=>
+      if(request.session.get("cartID")!=None) {
+        val cartId = request.session.get("cartID").get
+        Logger.info(s"checking out cart with ID: $cartId")
+        Ok(views.html.productdetail(cartId,id))
+      }else{
+
+        Ok(views.html.productdetail("None",id))
+      }
+
+    }
     
     def location = Action{
       Ok(views.html.location(" "))
@@ -33,11 +74,6 @@
         val lat = request.getQueryString("lat")
         val long = request.getQueryString("long")
         Ok(Json.toJson(s" host: $host lat: $lat long: $long"))
-    }
-
-    def superAdminHome = Action{
-      Ok(views.html.superadminhome(""))
-      
     }
     
     def cart = Action{
@@ -52,7 +88,7 @@
     def home = Action{
       request =>
 
-      Ok(views.html.home( ""))
+      Ok(views.html.home(""))
     }
 
     def signUp = Action{
@@ -75,12 +111,14 @@
   
     def productPage= Action{
       request=>
-        if(request.session.get("cartID")!=None) {
-          val cartId = request.session.get("cartID").get
-          Ok(views.html.allproducts(cartId))
+        if(request.session.get("userID")!=None) {
+          val userId = request.session.get("userID").get
+         // Ok(views.html.products(userId, Product.productForm))
+          Ok(views.html.products(userId))
         }else{
 
-          Ok(views.html.allproducts("None"))
+          //Ok(views.html.products("None",Product.productForm))
+          Ok(views.html.products("None"))
         }
 
       

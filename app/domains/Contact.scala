@@ -1,4 +1,4 @@
-package models
+package domains
 
 import domains.MailOption
 import play.api.libs.json.Json
@@ -23,4 +23,5 @@ object Contact{
   implicit  val format = Json.format[Contact]
 
 }
+
 

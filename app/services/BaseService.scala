@@ -1,8 +1,6 @@
 package services
 
-
-
-import models.Contact
+import domains.Contact
 import org.joda.time.format.ISODateTimeFormat
 import play.api.Logger
 import play.api.libs.json.Reads._
@@ -34,6 +32,11 @@ class BaseService[T: Format](dao: BaseDao[T]) {
 
   def findAll(t: JsObject): Future[Seq[JsObject]]={
     dao.readAll(t).map( _.map( js => transformMongoFields(js)))
+  }
+
+  //todo doing
+  def findAllByQuery(t: JsObject,limit: Int, skip: Int) ={
+    dao.readAllByQuery(t,limit,skip).map( _.map( js => transformMongoFields(js)))
   }
 
   def findOne(t: JsObject):Future[Option[JsObject]]={

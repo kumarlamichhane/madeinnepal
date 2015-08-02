@@ -40,7 +40,7 @@ function add2cart(pID,name,count,price)
     orderProducts(pID,name,count,price)
     $.ajax({
         type: 'POST',
-        url: "http://localhost:9000/addtocart",
+        url: "http://localhost:8888/addtocart",
         dataType: "json",
         contentType:"application/json",
         data: cartItem,
@@ -63,7 +63,7 @@ function getCartItems2(cId){
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/cart/"+cId,
+        url: "http://localhost:8888/cart/"+cId,
         success: function(cart) {
             $('#cart_items').empty()
             var cartId = cart._id
@@ -167,7 +167,7 @@ function checkout(){
         //window.location.href = "/page/bill"
         $.ajax({
             type: 'POST',
-            url: "http://localhost:9000/checkout",
+            url: "http://localhost:8888/checkout",
             dataType: "json",
             contentType: "application/json",
             data: customerJSON(),
@@ -214,7 +214,7 @@ function clearCart(cartId){
     if(cartId!="") {
         $.ajax({
             type: 'GET',
-            url: "http://localhost:9000/clearCart/" + cartId,
+            url: "http://localhost:8888/clearCart/" + cartId,
             success: function (msg) {
                 $('#cart_items').empty()
                 getCartItems2(cartId)
@@ -233,7 +233,7 @@ function clearCart(cartId){
 function removeItem(cartId,productID){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/cart/"+cartId+"/"+productID,
+        url: "http://localhost:8888/cart/"+cartId+"/"+productID,
         success: function(msg) {
             //  alert(msg)
             $('#cart_items').empty()

@@ -32,10 +32,10 @@ object CustomerService extends BaseService[Customer](customerDao) {
       val cartID = cart._id
       CartService.removeCart(cartID)
       for {
-        customerID <- CustomerService.insert(customer)("")
-        order = CustomerOrder(None, None, customerID._1, cartID)
-        orderID <- customerOrderService.insert(order)(customerID._1)
-        billJSON = buildBill(orderID._1, t.as[JsObject], cartJs)
+        customer <- CustomerService.insert(customer)("")
+        order = CustomerOrder(None, None, customer._1, cartID)
+        order <- customerOrderService.insert(order)(customer._1)
+        billJSON = buildBill(order._1, t.as[JsObject], cartJs)
        // _=Logger.info(s"sending mail 2 $email")
        // _=Application.sendMail(email, buildMail(billJSON))
       } yield billJSON
@@ -50,10 +50,11 @@ object CustomerService extends BaseService[Customer](customerDao) {
       "cart"->cart
     )
   
-  //todo make a html bill template
+
   def buildMail(bill: JsObject): String= {
     val billId = bill.\("_id").toString()
     val customerName = bill \ "customer" \"name" .toString()
+    //todo make a html bill template
     val html=  s"Dear, $customerName, ur  bill id or confirmation number is $billId Thanks 4 shopping with us"
     html
   }

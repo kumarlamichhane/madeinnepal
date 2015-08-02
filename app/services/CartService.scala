@@ -1,6 +1,5 @@
 package services
 
-
 import domains.{CartItem, Cart, Product}
 import factories.DaoFactory._
 import factories.ServiceFactory._

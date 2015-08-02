@@ -3,7 +3,7 @@ package controllers
 import domains.MailOption
 import factories.DaoFactory._
 import factories.ServiceFactory._
-import models.{Contact, Host}
+import domains.{Contact, Host}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Reads, Json, JsObject}
 import play.api.mvc.Action

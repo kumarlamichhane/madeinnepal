@@ -2,7 +2,7 @@ function createHost() {
  
     $.ajax({      
         type: 'POST',
-        url: "http://localhost:9000/hosts",
+        url: "http://localhost:8888/hosts",
         dataType: "json",
         contentType:"application/json",
         data: formHost(),        

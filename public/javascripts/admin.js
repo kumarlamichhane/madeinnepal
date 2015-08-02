@@ -5,7 +5,7 @@
 function logout(){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/logout",
+        url: "http://localhost:8888/logout",
         success:
             function(msg) {
 
@@ -22,7 +22,7 @@ function logout(){
 function getUserInSession(){
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/users/me",
+        url: "http://localhost:8888/users/me",
         success: function(msg) {
             console.log(msg)
             $('#user-name-label').append('<li>' + msg.username +'\t(' +msg.group + ')</li>');
@@ -40,7 +40,7 @@ function login() {
 
     $.ajax({
         type: 'POST',
-        url: "http://localhost:9000/login",
+        url: "http://localhost:8888/login",
         dataType: "json",
         contentType:"application/json",
         data: loginForm(),
@@ -50,21 +50,21 @@ function login() {
             var msgStr = msg.toString()
             if(msgStr=="success") {
 
-                window.location.href = "/admin/home"
+                window.location.href = "/admin/page/home"
             }
 
             else if(msgStr=="change") {
 
-                window.location.href = "/admin/changepassword"
+                window.location.href = "/admin/page/changepassword"
             }
             else {
 
-                window.location.href = "/admin"
+                window.location.href = "/admin/page/login"
             }
       },
         error:function(msg){
-            //alert(msg)
-            window.location.href = "/admin"
+            alert("login error")
+            window.location.href = "/admin/page/login"
         }
     });
 }
@@ -82,7 +82,7 @@ function createUser(){
 
     $.ajax({
         type: 'POST',
-        url: "http://localhost:9000/users",
+        url: "http://localhost:8888/users",
         dataType: "json",
         contentType:"application/json",
         data: userForm(),
@@ -115,7 +115,7 @@ function changePassword(){
 
     $.ajax({
         type: 'PUT',
-        url: "http://localhost:9000/users/password",
+        url: "http://localhost:8888/users/password",
         dataType: "json",
         contentType:"application/json",
         data: passwordForm(),
@@ -154,7 +154,7 @@ function getUserCount(){
 
     $.ajax({
         type: 'GET',
-        url: "http://localhost:9000/users/count/user",
+        url: "http://localhost:8888/users/count/user",
         success:
             function(msg) {
                 $('#count_user').append('<li>' + msg + '</li>');

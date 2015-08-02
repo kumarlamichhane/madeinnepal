@@ -4,7 +4,7 @@
 @mainshop("Checkout"){
 
 
-    <label type="hidden" style = "{display: none}" id ="cart_id">@cartId</label>
+    <label class="hidden" id ="cart_id">@cartId</label>
 
     <script>
     var id = $('#cart_id' ).text().toString()
@@ -404,16 +404,16 @@
                             @*</div>*@
                         @*</section>*@
 
-                        @*<div class="coupon-code">*@
-                            @*<div class="row">*@
-                                @*<div class="col-sm-4 sm-margin-bottom-30">*@
-                                    @*<h3>Discount Code</h3>*@
-                                    @*<p>Enter your coupon code</p>*@
-                                    @*<input class="form-control margin-bottom-10" name="code" type="text">*@
-                                    @*<button type="button" class="btn-u btn-u-sea-shop">Apply Coupon</button>*@
-                                @*</div>*@
-                                @*<div class="col-sm-3 col-sm-offset-5">*@
-                                    @*<ul class="list-inline total-result">*@
+                        <div class="coupon-code">
+                            <div class="row">
+                                <div class="col-sm-4 sm-margin-bottom-30">
+                                    <h3>Discount Code</h3>
+                                    <p>Enter your coupon code</p>
+                                    <input class="form-control margin-bottom-10" name="code" type="text">
+                                    <button type="button" class="btn-u btn-u-sea-shop">Apply Coupon</button>
+                                </div>
+                                <div class="col-sm-3 col-sm-offset-5">
+                                    <ul class="list-inline total-result">
                                         @*<li>*@
                                             @*<h4>Subtotal:</h4>*@
                                             @*<div class="total-result-in">*@
@@ -433,10 +433,10 @@
                                                 @*<span>$ 1280.00</span>*@
                                             @*</div>*@
                                         @*</li>*@
-                                    @*</ul>*@
-                                @*</div>*@
-                            @*</div>*@
-                        @*</div>*@
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div><!--/end container-->

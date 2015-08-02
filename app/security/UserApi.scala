@@ -5,7 +5,7 @@ import controllers.BaseApi
 import factories.ServiceFactory._
 import play.api.libs.json.{JsObject, Json}
 import play.api.mvc.Action
-import security.LoginController.ActionSuperAdmin
+import security.LoginController.{ActionAdmin, ActionSuperAdmin}
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api._
 import scala.concurrent.duration._
@@ -50,10 +50,10 @@ object UserApi extends BaseApi{
         }
   }
 
-  def changePassword = Action.async(parse.json){
+  def changePassword = ActionAdmin.async(parse.json){
     Logger.info(s"changing password")
     request => {
-      val userId = request.session.get("userId").get
+      val userId = request.session.get("userId").get.toString
       Logger.info(s"userId : $userId")
       val newPassword = request.body.\("password").toString().replaceAll("\"","")
       Logger.info(s"new password: $newPassword")

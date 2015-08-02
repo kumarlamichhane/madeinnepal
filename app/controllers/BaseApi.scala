@@ -1,7 +1,7 @@
 package controllers
 
 import play.api._
-import play.api.libs.json.{Writes, JsObject, Json}
+import play.api.libs.json.{Reads, Writes, JsObject, Json}
 import play.api.mvc._
 import security.LoginController.ActionSuperAdmin
 import services.BaseService
@@ -19,7 +19,8 @@ trait BaseApi extends Controller{
   //post, get, put, delete
   def post[T](service: BaseService[T]): EssentialAction= Action.async(parse.json){
     request=>{
-      val userId = request.session.get("userId").get
+      val userId = request.session.get("userId").getOrElse("None")
+      Logger.info(s"inside base api post")
       Json.fromJson(request.body)(service.reader).map{
      // request.body.validate[T].map{
           t=> service.insert(t)(userId).map{ res => Created(Json.toJson(res._1)(idWriter))
@@ -28,16 +29,45 @@ trait BaseApi extends Controller{
     }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
 
-  //todo find by a field
-  def getAll[T](service: BaseService[T]): EssentialAction = Action.async{
 
-    val query = Json.obj()
-    val list = service.findAll(query)
+  def getAll[T](service: BaseService[T]): EssentialAction = Action.async{
+    request =>
+
+      val queryStr: Map[String, Seq[String]] = request.queryString
+      Logger.info(queryStr.toString())
+      var query : JsObject = Json.obj()
+      for((key,value) <- queryStr - "limit" - "skip"){
+        query = query+(key,Json.toJson(value.head))
+      }
+
+      val list = service.findAll(query)
+      list.map{
+        case Nil=>NotFound(Json.toJson("no data"))
+        case l:Seq[JsObject] => Ok(Json.toJson(l))
+      }
+  }
+  val queryReader: Reads[JsObject] = implicitly[Reads[JsObject]]
+  //todo find by a query
+  def findAll[T](service: BaseService[T]): EssentialAction = Action.async{
+  request =>
+
+    val queryStr: Map[String, Seq[String]] = request.queryString
+    Logger.info(queryStr.toString())
+    var query : JsObject = Json.obj()
+    for((key,value) <- queryStr - "limit" - "skip"){
+      query = query+(key,Json.toJson(value.head))
+    }
+    //todo implement skip and limit
+    val limit = queryStr.get("limit").getOrElse(0).asInstanceOf[Int]
+    val skip = queryStr.get("skip").getOrElse(0).asInstanceOf[Int]
+
+    val list = service.findAllByQuery(query,limit,skip)
     list.map{
       case Nil=>NotFound(Json.toJson("no data"))
       case l:Seq[JsObject] => Ok(Json.toJson(l))
     }
   }
+
 
   def getCount[T](service: BaseService[T]): EssentialAction = Action.async{
 

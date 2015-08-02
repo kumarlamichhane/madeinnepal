@@ -22,9 +22,7 @@ object LoginController extends Controller {
   //case class AuthenticatedRequest (val userId: String, request: Request[AnyContent]) extends WrappedRequest(request)
   
   object ActionSuperAdmin extends ActionBuilder[Request] {
-    
     def invokeBlock[A](request: Request[A], block: Request[A] => Future[SimpleResult]) = {
-      
       val userIdInSession = request.session.get("userId").get.toString
       val futureUser: Future[Option[JsObject]] = userService.findById(userIdInSession)
       val userGroup = futureUser.map{
@@ -48,11 +46,37 @@ object LoginController extends Controller {
     }
   }
 
-  def admin = Action{
+  object ActionAdmin extends ActionBuilder[Request] {
+    def invokeBlock[A](request: Request[A], block: Request[A] => Future[SimpleResult]) = {
+      val userIdInSession = request.session.get("userId").get.toString
+      val futureUser: Future[Option[JsObject]] = userService.findById(userIdInSession)
+      val userGroup = futureUser.map{
+        case None => Ok(Json.toJson("not present"))
+        case Some(u) => {
+          val userObj = u.as[User]
+          Logger.info(s"found user $u")
+          val group = userObj.group.get.toString
+          group
+        }
+      }
+      Logger.info(s"user group $userGroup")
+
+      val group = Await.result(userGroup, 10 seconds)
+
+      group match {
+        case "SuperAdmin" => block(request)
+        case "Admin" => block(request)
+        case _ => Future(Ok(Json.toJson("unauthorized")))
+      }
+
+    }
+  }
+
+  def loginPage = Action{
     Ok(views.html.admin(" "))
   }
 
-  def adminHome = Action{
+  def adminHome = ActionAdmin{
       Ok(views.html.adminhome(" "))
   }
 
@@ -110,15 +134,20 @@ object LoginController extends Controller {
     }
   }
 
-  def logout: EssentialAction = Action.async{
+  def logout: EssentialAction = ActionAdmin.async{
     Future(Ok(Json.toJson("logged out")).withNewSession)
   }
 
 
-  def adminPasswordChange = Action{
-    request=>
+  def passwordPage = ActionAdmin{
+    request=>{}
       val userId = request.session.get("userId").get.toString
       val futureUser = UserService.findById(userId)
+
+//     futureUser.map{
+//       c => Ok(c.get.as[User].username)
+//     }
+
       val user = Await.result(futureUser,10 seconds)
       val userName = user.get.as[User].username
 

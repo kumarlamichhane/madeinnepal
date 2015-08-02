@@ -3,7 +3,7 @@ package controllers
 import security.LoginController.ActionSuperAdmin
 import scala.concurrent.duration._
 import scala.util.{Success, Failure}
-import models.Contact
+import domains.Contact
 import play.api.Logger
 import play.api.mvc._
 import play.modules.reactivemongo.{ReactiveMongoPlugin, MongoController}

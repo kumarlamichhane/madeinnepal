@@ -32,4 +32,8 @@ object ProductActController extends Controller {
       res.map(s=>Ok(Json.toJson(s)))
     }
   }
+
+
+
+
 }

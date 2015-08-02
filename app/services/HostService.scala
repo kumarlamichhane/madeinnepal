@@ -1,6 +1,6 @@
 package services
 
-import models.Host
+import domains.Host
 import factories.DaoFactory._
 import play.api.libs.json.{Json, JsObject}
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -1,4 +1,5 @@
 
+import common.{AddDefaultResponseHeader}
 import factories.DaoFactory._
 import play.api._
 import play.api.http.Status
@@ -25,6 +26,10 @@ object Global extends GlobalSettings {
     }
 
   }
+
+//  override def doFilter(next: EssentialAction): EssentialAction = {
+//    Filters(super.doFilter(next), AddDefaultResponseHeader)
+//  }
 
   override def onError(request: RequestHeader, ex: Throwable) = {
     Future.successful(InternalServerError)

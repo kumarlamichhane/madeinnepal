@@ -7,6 +7,7 @@ import play.api.libs.json._
 import play.modules.reactivemongo.ReactiveMongoPlugin
 import play.modules.reactivemongo.json.collection.JSONCollection
 import play.modules.reactivemongo.json.BSONFormats._
+import reactivemongo.api.QueryOpts
 import reactivemongo.bson.BSONObjectID
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
@@ -49,6 +50,11 @@ class BaseDao[T](collectionName: String) {
 
   def readAll(t: JsObject):Future[Seq[JsObject]]={
     collection.find(t).sort(Json.obj("firstName"->1)).cursor[JsObject].collect[List]()
+  }
+
+  //todo doing
+  def readAllByQuery(t: JsObject,limit: Int, skip: Int):Future[Seq[JsObject]]={
+    collection.find(t).options(QueryOpts(skip,limit)).sort(Json.obj("firstName"->1)).cursor[JsObject].collect[List]()
   }
 
   def readOne(t: JsObject): Future[Option[JsObject]]={

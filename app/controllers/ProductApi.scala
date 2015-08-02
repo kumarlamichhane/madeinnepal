@@ -30,6 +30,7 @@ object ProductApi extends BaseApi {
       
     }
   }
-  
+
+  def findQuery = findAll(productService)
   
 }

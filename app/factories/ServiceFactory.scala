@@ -1,7 +1,7 @@
 package factories
 
 import domains._
-import models.{Host, Contact}
+import domains.{Host, Contact}
 import security.User
 import services.BaseService
 import DaoFactory._

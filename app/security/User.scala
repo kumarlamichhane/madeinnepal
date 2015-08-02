@@ -1,6 +1,5 @@
 package security
 
-
 import reactivemongo.bson.BSONObjectID
 import utils.CommonUtils._
 import play.api.Logger
@@ -34,7 +33,7 @@ object User{
 
 object Group extends Enumeration{
   type Group = Value
-  val SuperAdmin, Admin, Other = Value
+  val SuperAdmin, Admin, StoreKeeper = Value
 
   implicit val readGroup: Reads[Group] = EnumUtils.enumReads(Group)
   implicit val writeGroup: Writes[Group] = EnumUtils.enumWrites
